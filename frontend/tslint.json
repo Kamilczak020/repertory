@@ -1,0 +1,14 @@
+{
+  "extends": ["./tslint.cc.json"],
+  "rulesDirectory": ["./node_modules/tslint-microsoft-contrib"],
+  "rules": {
+    "mocha-unneeded-done": true,
+    "no-banned-terms": true,
+    "no-delete-expression": true,
+    "no-for-in": true,
+    "no-relative-imports": false,
+    "no-default-import": false,
+    "variable-name": false,
+    "no-small-switch": false
+  }
+}
