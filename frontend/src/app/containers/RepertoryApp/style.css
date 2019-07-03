@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Slabo+27px&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
@@ -10,8 +12,25 @@ html, body {
 }
 
 .container {
+  display: flex;
   flex: 1;
-  background: #0F2027;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+
+  background: #FFA17F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(bottom, #00223E, #FFA17F);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #00223E, #FFA17F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.appArea {
+  display: grid;
+  flex: 1;
+  margin: 20px;
+
+  grid-template-columns: 3fr 20px 1fr;
+}
+
+.main {
+  grid-column-start: 1;
+  grid-column-end: 2;
+
+  background: white;
 }
