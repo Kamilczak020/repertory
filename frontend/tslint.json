@@ -8,7 +8,11 @@
     "no-for-in": true,
     "no-relative-imports": false,
     "no-default-import": false,
+    "ordered-imports": false,
+    "no-default-export": false,
     "variable-name": false,
-    "no-small-switch": false
+    "no-small-switch": false,
+    "no-magic-numbers": false,
+    "object-literal-sort-keys": false
   }
 }
