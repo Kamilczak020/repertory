@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Raven from '../../../assets/images/raven.svg';
 import * as style from './style.css';
+import Raven from '../../../assets/images/raven.svg';
 
 export class Header extends React.Component {
   public render() {

@@ -1,7 +1,7 @@
 import * as React from 'react';
+import * as style from './style.css';
 import Attachment from '../../../assets/images/attachment.svg';
 import Send from '../../../assets/images/send.svg';
-import * as style from './style.css';
 
 export class Chat extends React.Component {
   public render() {
