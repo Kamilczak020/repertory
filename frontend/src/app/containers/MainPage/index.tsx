@@ -1,9 +1,9 @@
-import { Chat } from 'app/components/chat';
-import { Header } from 'app/components/header';
 import * as React from 'react';
 import * as style from './style.css';
+import { Chat } from 'app/components/chat';
+import { Header } from 'app/components/header';
 
-export class RepertoryApp extends React.Component {
+export class MainPage extends React.Component {
   public render() {
     return (
       <div className={style.rootContainer}>
