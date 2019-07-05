@@ -27,10 +27,16 @@ export class LoginStore {
   public async login(): Promise<void> {
     this.clear();
     try {
-      await API.post('/login', { username: this.username, password: this.password });
+      await API.post('/auth/login', { username: this.username, password: this.password });
     } catch (error) {
       this.loginFailed = true;
     }
+  }
+
+  @action
+  public emptyFields() {
+    this.username = undefined;
+    this.password = undefined;
   }
 
   @action

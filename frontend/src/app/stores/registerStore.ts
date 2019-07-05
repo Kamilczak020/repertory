@@ -12,7 +12,10 @@ export class RegisterStore {
   public password: string;
 
   @observable
-  public registerFailed: boolean = false;
+  public failMessage: string;
+
+  @observable
+  public registerFailed: boolean;
 
   @computed
   public get usernameValid(): boolean {
@@ -36,14 +39,23 @@ export class RegisterStore {
   public async register(): Promise<void> {
     this.clear();
     try {
-      await API.post('/register', { username: this.username, email: this.email, password: this.password });
+      await API.post('/auth/register', { username: this.username, email: this.email, password: this.password });
     } catch (error) {
+      this.failMessage = error.response.data.reason;
       this.registerFailed = true;
     }
   }
 
   @action
+  public emptyFields() {
+    this.username = undefined;
+    this.email = undefined;
+    this.password = undefined;
+  }
+
+  @action
   public clear() {
+    this.failMessage = undefined;
     this.registerFailed = false;
   }
 }
