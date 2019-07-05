@@ -82,10 +82,17 @@
   outline: none;
 }
 
-.registerForm .formBody .inputGroup .labelGroup {
-  & .labelIcon {
-    padding-right: 5px;
+.registerForm .formBody .inputGroup .labelGroup .labelIcon {
+  padding-right: 5px;
+  color: black;
+
+  &.fieldFailed {
+    color: #A61108;
   }
+}
+
+.registerForm .formBody .inputGroup .labelGroup label.fieldFailed {
+  color: #A61108;
 }
 
 .registerForm .formFooter {
@@ -108,11 +115,11 @@
 }
 
 .registerForm .formFooter .submitButton.registerFailed {
-  animation: failedAnimation 1.5s;
+  animation: failedBackgroundAnimation 1.5s;
   animation-timing-function: ease-in-out;
 }
 
-@keyframes failedAnimation {
+@keyframes failedBackgroundAnimation {
   0% { background-color: #00223E; }
   50% { background-color: #A61108; }
   100% { background-color: #00223E; }

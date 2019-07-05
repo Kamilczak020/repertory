@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as style from './style.css';
 import * as classnames from 'classnames/bind';
-import { STORE_LOGIN, STORE_ROUTER } from 'app/constants';
-import { RouterStore, LoginStore } from 'app/stores';
+import { STORE_LOGIN, STORE_ROUTER, STORE_REGISTER } from 'app/constants';
+import { RouterStore, LoginStore, RegisterStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classnames.bind(style);
 
-@inject(STORE_LOGIN, STORE_ROUTER)
+@inject(STORE_LOGIN, STORE_ROUTER, STORE_REGISTER)
 @observer
 export class LoginForm extends React.Component {
   private handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -32,8 +32,14 @@ export class LoginForm extends React.Component {
     }
   }
 
+  public componentDidMount() {
+    const loginStore = this.props[STORE_LOGIN] as LoginStore;
+    loginStore.clear();
+  }
+
   public render() {
     const routerStore = this.props[STORE_ROUTER] as RouterStore;
+    const registerStore = this.props[STORE_REGISTER] as RegisterStore;
     const loginStore = this.props[STORE_LOGIN] as LoginStore;
 
     const submitButtonClassnames = cx({
@@ -46,16 +52,17 @@ export class LoginForm extends React.Component {
         <div className={style.formHeader}>
           <button className={style.signInButton}
             onClick={(e) => {
+              e.preventDefault();
               loginStore.clear();
               routerStore.push('/signin');
-              e.preventDefault();
             }}
           >Sign In</button>
           <button className={style.registerButton}
             onClick={(e) => {
-              loginStore.clear();
-              routerStore.push('register');
               e.preventDefault();
+              registerStore.emptyFields();
+              registerStore.clear();
+              routerStore.push('/register');
             }}
           >Register</button>
         </div>
