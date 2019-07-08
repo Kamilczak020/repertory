@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import * as config from '../../config/config.json';
-import { AuthenticationError } from '../errors';
+import { AuthenticationError } from '../error';
 
 export interface UserToken {
   iat: number;
@@ -11,7 +10,7 @@ export interface UserToken {
 export function authenticate(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies['RepertoryUser'];
   try {
-    const decoded = jwt.decode(token, config.secret) as UserToken;
+    const decoded = jwt.verify(token, process.env.SECRET) as UserToken;
     res.locals.user = decoded.user;
     next();
   } catch (error) {
