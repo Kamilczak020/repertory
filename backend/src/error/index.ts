@@ -1,5 +1,9 @@
 import { BaseError } from 'make-error';
 
+export interface ErrorResponse {
+  reason: string;
+}
+
 export class RequestError extends BaseError {
   public status = 400;
 }
@@ -12,17 +16,30 @@ export class InvalidQueryError extends RequestError {
 
 export class AuthenticationError extends BaseError {
   public status = 401;
-}
+  public response: ErrorResponse;
 
-export class RegistrationError extends AuthenticationError {
-  constructor(message?: string) {
-    super(`Registration Error: ${message}`);
+  constructor(message?: string, reason?: string) {
+    super(`Authentication error: ${message}`);
+
+    this.response = { reason };
   }
 }
 
 export class LoginError extends AuthenticationError {
-  constructor(message?: string) {
-    super(`Login Error: ${message}`);
+  constructor(message?: string, reason?: string) {
+    super(`Login error: ${message}`);
+
+    this.response = { reason };
+  }
+}
+
+export class RegistrationError extends AuthenticationError {
+  public status = 403;
+
+  constructor(message?: string, reason?: string) {
+    super(`Registration error: ${message}`);
+
+    this.response = { reason };
   }
 }
 
