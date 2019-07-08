@@ -1,7 +1,6 @@
-import {Table, Column, Model, BeforeCreate, HasMany } from 'sequelize-typescript';
-import { DataType, PrimaryKey, Default, Unique, AllowNull, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
+import {Table, Column, Model, BeforeCreate } from 'sequelize-typescript';
+import { DataType, PrimaryKey, Default, Unique, AllowNull, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 import * as bcrypt from 'bcryptjs';
-import Event from './event';
 
 export interface UserProperties {
   id?: string;
@@ -10,7 +9,7 @@ export interface UserProperties {
   createdAt?: Date;
   updatedAt?: Date;
 
-  validatePassword: (password) => Promise<boolean>;
+  validatePassword: (password: string) => Promise<boolean>;
 }
 
 @Table({ tableName: 'User' })
@@ -26,6 +25,11 @@ export default class User extends Model<User> implements UserProperties {
   @AllowNull(false)
   @Column(DataType.STRING)
   public username: string;
+
+  @Unique
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  public email: string;
 
   @AllowNull(false)
   @Column(DataType.STRING)
