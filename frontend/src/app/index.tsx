@@ -2,6 +2,7 @@ import * as React from 'react';
 import { LoginPage } from 'app/containers/LoginPage';
 import { MainPage } from 'app/containers/MainPage';
 import { RegisterPage } from './containers/RegisterPage';
+import { ThankYouPage } from './containers/ThankYouPage';
 import { Root } from 'app/containers/Root';
 import { hot } from 'react-hot-loader/root';
 import { Route, Router, Switch } from 'react-router';
@@ -18,6 +19,7 @@ export const app = hot(({ history }) => (
         <Route path="/watch" component={MainPage} />
         <Route path="/signin" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/thankyou" component={ThankYouPage} />
       </Switch>
     </Router>
   </Root>
