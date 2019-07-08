@@ -3,6 +3,7 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as logger from 'morgan';
+import authRouter from './router/authRouter';
 
 // Creates and configures an ExpressJS web server.
 class HttpApp {
@@ -23,7 +24,7 @@ class HttpApp {
   }
 
   private routes(): void {
-    // const router = express.Router();
+    this.express.use('/auth', authRouter);
   }
 }
 
