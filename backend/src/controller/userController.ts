@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { RegistrationError, LoginError, DatabaseError, AuthenticationError } from '../error';
 import { isString } from 'util';
-import User from '../models/user';
+import User from '../model/user';
 import * as jwt from 'jsonwebtoken';
 
 export interface UserCookie {
@@ -9,20 +9,32 @@ export interface UserCookie {
   user: string;
 }
 
+export enum RegistrationFailureReason {
+  UsernameExists = 'username-exists',
+  EmailExists = 'email-exists',
+}
+
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   if (!isString(username) || !isString(password)) {
     throw new RegistrationError('Invalid Credentials.');
   }
 
-  const [user, created] = await User.findOrCreate({ where: { username }, defaults: { username, password }}).catch((error) => {
+  const usernameUser = await User.findOne({ where: { username }}).catch((error) => {
     throw new DatabaseError(error);
   });
+  if (usernameUser) {
+    throw new RegistrationError('Username already in database.', RegistrationFailureReason.UsernameExists);
+  }
 
+  const [user, created] = await User.findOrCreate({ where: { email }, defaults: { username, password }}).catch((error) => {
+    throw new DatabaseError(error);
+  });
   if (!created) {
-    throw new RegistrationError(`User with username: ${user.username} already exists.`);
+    throw new RegistrationError(`Email already in database.`, RegistrationFailureReason.EmailExists);
   }
 
   return {
@@ -39,18 +51,20 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
     throw new LoginError('Invalid Credentials.');
   }
 
-  const user = await User.findOne({ where: { username }});
+  const user = await User.findOne({ where: { username }}).catch((error) => {
+    throw new DatabaseError(error);
+  });
   if (user === null) {
-    throw new LoginError('User with that username does not exist.');
+    throw new LoginError('Username not in database.');
   }
 
   if (!await user.validatePassword(password)) {
-    throw new AuthenticationError('Invalid Password');
+    throw new AuthenticationError(`Invalid password for username: ${user}`);
   }
 
   // Secret is here TEMPORAIRLY!
-  const token = jwt.sign({ user: user.username }, 'CHOCOLATEY');
-  res.cookie('MeetMeUser', token);
+  const token = jwt.sign({ user: user.username }, process.env.SECRET);
+  res.cookie('RepertoryUser', token);
 
   return {
     status: 'success',
