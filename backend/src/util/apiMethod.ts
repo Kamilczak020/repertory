@@ -7,7 +7,7 @@ export function apiMethod(innerFunction: Function) {
     .then((result) => {
       res.json(result);
     }, (err) => {
-      console.error(err.stack);
+      console.log(err);
       res.status(err.status || 500).json(err.response);
     });
   };
