@@ -13,8 +13,8 @@ export class Header extends React.Component {
 
     return (
       <div className={style.header}>
-        <hr className={style.line} />
         <menu className={style.menuLeft}>
+          <hr className={style.line} />
           <ul>
             <li onClick={() => routerStore.push('/')}>Home</li>
             <li>Watch</li>
@@ -29,8 +29,8 @@ export class Header extends React.Component {
             <li>Profile</li>
             <li>Settings</li>
           </ul>
+          <hr className={style.line} />
         </menu>
-        <hr className={style.line} />
       </div>
     );
   }
