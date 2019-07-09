@@ -1,15 +1,22 @@
 import * as React from 'react';
 import * as style from './style.css';
 import Raven from '../../../assets/images/raven.svg';
+import { STORE_ROUTER } from 'app/constants';
+import { RouterStore } from 'app/stores';
+import { inject, observer } from 'mobx-react';
 
+@inject(STORE_ROUTER)
+@observer
 export class Header extends React.Component {
   public render() {
+    const routerStore = this.props[STORE_ROUTER] as RouterStore;
+
     return (
       <div className={style.header}>
         <hr className={style.line} />
         <menu className={style.menuLeft}>
           <ul>
-            <li>Home</li>
+            <li onClick={() => routerStore.push('/')}>Home</li>
             <li>Watch</li>
           </ul>
         </menu>
