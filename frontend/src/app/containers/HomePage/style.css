@@ -55,15 +55,15 @@ html, body {
   margin-top: 30px;
   padding: 50px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
   background: #f7f7f7;
 }
 
 .homeArea .showcase .showcaseGroup {
   max-width: 400px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,13 +90,14 @@ html, body {
   width: 90%;
   margin-top: 30px;
   padding: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-sizing: border-box;
 }
 
 .homeArea .description .descriptionGroup {
   max-width: 400px;
+  margin: auto;
   text-align: justify;
 
   & h3 {
