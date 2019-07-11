@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Slabo+27px&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.rootContainer {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+
+  background: #FFA17F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(bottom, #00223E, #FFA17F);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #00223E, #FFA17F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.profileContainer {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px;
+
+  font-family: 'Montserrat', sans-serif;
+  background: white;
+}
+
+.profileContainer .userInfo {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.profileContainer .userInfo .userDetails {
+  display: flex;
+  flex-direction: column;
+  padding-left: 60px;
+
+  & h2 {
+    margin: 0;
+    color: #00223E;
+    font-size: 30px;
+  }
+
+  & p {
+    margin: 5px 0 0;
+    font-size: 16px;
+  }
+
+  & h3 {
+    margin-top: 60px;
+    color: #c7c7c7;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}

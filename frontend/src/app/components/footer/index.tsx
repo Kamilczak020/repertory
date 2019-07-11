@@ -3,6 +3,7 @@ import * as style from './style.css';
 import { STORE_ROUTER } from 'app/constants';
 import { RouterStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
+import Github from '../../../assets/images/github.svg';
 
 @inject(STORE_ROUTER)
 @observer
@@ -17,22 +18,22 @@ export class Footer extends React.Component {
             <h4>General</h4>
             <a onClick={() => routerStore.push('/')}>Home</a>
             <a onClick={() => routerStore.push('/')}>Watch</a>
+            <a onClick={() => routerStore.push('/')}>Terms of Service</a>
+            <a onClick={() => routerStore.push('/')}>Privacy Policy</a>
+          </div>
+          <div className={style.contentGroup}>
+            <h4>Account</h4>
+            <a onClick={() => routerStore.push('/')}>Sign In</a>
+            <a onClick={() => routerStore.push('/')}>Register</a>
             <a onClick={() => routerStore.push('/')}>Profile</a>
             <a onClick={() => routerStore.push('/')}>Settings</a>
           </div>
           <div className={style.contentGroup}>
-            <h4>General</h4>
-            <a onClick={() => routerStore.push('/')}>Home</a>
-            <a onClick={() => routerStore.push('/')}>Watch</a>
-            <a onClick={() => routerStore.push('/')}>Profile</a>
-            <a onClick={() => routerStore.push('/')}>Settings</a>
-          </div>
-          <div className={style.contentGroup}>
-            <h4>General</h4>
-            <a onClick={() => routerStore.push('/')}>Home</a>
-            <a onClick={() => routerStore.push('/')}>Watch</a>
-            <a onClick={() => routerStore.push('/')}>Profile</a>
-            <a onClick={() => routerStore.push('/')}>Settings</a>
+            <a href="https://github.com/Kamilczak020/repertory" className={style.linkField}>
+              <Github className={style.icon} viewBox="0 0 438.549 438.549"/>
+              <p>Kamilczak020</p>
+            </a>
+            <p>Copyright © 2019 Kamil Solecki</p>
           </div>
         </div>
       </div>

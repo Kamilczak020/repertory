@@ -3,6 +3,7 @@ import { LoginPage } from 'app/containers/LoginPage';
 import { MainPage } from 'app/containers/MainPage';
 import { RegisterPage } from './containers/RegisterPage';
 import { ThankYouPage } from './containers/ThankYouPage';
+import { ProfilePage } from './containers/ProfilePage';
 import { HomePage } from './containers/HomePage';
 import { Root } from 'app/containers/Root';
 import { hot } from 'react-hot-loader/root';
@@ -22,6 +23,7 @@ export const app = hot(({ history }) => (
         <Route path="/signin" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/thankyou" component={ThankYouPage} />
+        <Route path="/profile" component={ProfilePage} />
       </Switch>
     </Router>
   </Root>

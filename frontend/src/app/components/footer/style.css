@@ -5,6 +5,7 @@
   box-sizing: border-box;
   padding: 0 20px;
 
+  font-size: 14px;
   font-family: 'Montserrat', sans-serif;
   color: white;
   background: rgb(0,25,46);
@@ -14,6 +15,7 @@
 .footerContainer .footerContent {
   width: 90%;
   margin: 0 auto;
+  padding: 0 50px;
   display: grid;
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr 1fr;
@@ -26,14 +28,49 @@
   & a:hover {
     font-weight: 600;
   }
+
+  & h4 {
+    font-size: 16px;
+  }
 }
 
 .footerContainer .footerContent .contentGroup {
   width: 400px;
-  padding: 0 30px;
   box-sizing: border-box;
-  margin: auto;
+  margin: 25px auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: left;
+
+  &:nth-child(3) {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  & .linkField {
+    margin-left: auto;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text-decoration: none;
+    color: white;
+  }
+
+  & .linkField:hover {
+    font-weight: 500;
+  }
+
+  & .icon {
+    width: 20px;
+    height: 20px;
+    padding-right: 8px;
+    fill: white;
+  }
+
+  & p {
+    margin: 0;
+  }
 }
