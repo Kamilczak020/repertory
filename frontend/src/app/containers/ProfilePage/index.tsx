@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as style from './style.css';
 import { Header } from 'app/components/header';
 import { ImageUploader } from 'app/components/imageUploader';
+import { Footer } from 'app/components/footer';
 
 export class ProfilePage extends React.Component {
   public render() {
@@ -25,6 +26,7 @@ export class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
