@@ -113,6 +113,7 @@ export class RegisterForm extends React.Component {
               onChange={(e) => this.handleInputChange(e)}
             />
           </div>
+          <p>By registering, you agree with the <span onClick={() => routerStore.push('/tos')}>Terms of Service.</span></p>
         </div>
         <div className={style.formFooter}>
           <input className={submitButtonClassnames} type="submit" value="Register"
