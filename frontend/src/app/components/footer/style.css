@@ -1,6 +1,6 @@
 .footerContainer {
   width: 100%;
-  min-height: 250px;
+  height: 180px;
   display: flex;
   box-sizing: border-box;
   padding: 0 20px;
@@ -26,7 +26,7 @@
   }
 
   & a:hover {
-    font-weight: 600;
+    text-shadow: 0px 0px 1px white;
   }
 
   & h4 {
@@ -37,7 +37,7 @@
 .footerContainer .footerContent .contentGroup {
   width: 400px;
   box-sizing: border-box;
-  margin: 25px auto;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +45,17 @@
 
   &:nth-child(3) {
     text-align: right;
-    justify-content: flex-end;
+  }
+
+  & .links {
+    display: flex;
+    flex-direction: row;
+  }
+
+  & .linkGroup {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
   }
 
   & .linkField {
