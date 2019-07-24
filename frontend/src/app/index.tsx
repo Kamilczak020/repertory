@@ -8,9 +8,10 @@ import { HomePage } from './containers/HomePage';
 import { NotFoundPage } from './containers/NotFoundPage';
 import { Root } from 'app/containers/Root';
 import { hot } from 'react-hot-loader/root';
-import { Route, Router, Switch } from 'react-router';
+import { Route, Router, Switch} from 'react-router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { authenticated } from 'app/util/authenticated';
 
 library.add(faCheckCircle, faTimesCircle);
 
@@ -24,7 +25,7 @@ export const app = hot(({ history }) => (
         <Route path="/signin" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/thankyou" component={ThankYouPage} />
-        <Route path="/profile" component={ProfilePage} />
+        <Route path="/profile" component={authenticated(ProfilePage)} />
         <Route component={NotFoundPage} />
       </Switch>
     </Router>
