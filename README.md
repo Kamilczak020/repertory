@@ -28,3 +28,5 @@ All resources used are distributed under Creative Commons 3.0 license, unless ma
 4. Chatting group of people: [dDara](https://www.flaticon.com/authors/ddara) from [flaticon.com](https://www.flaticon.com/)
 5. Television icon: [Smashicons](https://www.flaticon.com/authors/smashicons) from [flaticon.com](https://www.flaticon.com/)
 6. Person with magnifying glass: [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [flaticon.com](https://www.flaticon.com/)
+7. Edit icon: [Chanut](https://www.flaticon.com/authors/chanut) from [flaticon.com](https://www.flaticon.com/)
+8. Add icon: [Eleanor Wang](https://www.flaticon.com/authors/eleonor-wang) from [flaticon.com](https://www.flaticon.com/)
