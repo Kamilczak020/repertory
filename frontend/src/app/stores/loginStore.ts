@@ -24,10 +24,11 @@ export class LoginStore {
   }
 
   @action
-  public async login(): Promise<void> {
+  public async login(action: () => void): Promise<void> {
     this.clear();
     try {
       await API.post('/auth/login', { username: this.username, password: this.password });
+      action();
     } catch (error) {
       this.loginFailed = true;
     }

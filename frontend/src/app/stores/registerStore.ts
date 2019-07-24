@@ -36,10 +36,11 @@ export class RegisterStore {
   }
 
   @action
-  public async register(): Promise<void> {
+  public async register(redirectAction: () => void): Promise<void> {
     this.clear();
     try {
       await API.post('/auth/register', { username: this.username, email: this.email, password: this.password });
+      redirectAction();
     } catch (error) {
       this.failMessage = error.response.data.reason;
       this.registerFailed = true;
