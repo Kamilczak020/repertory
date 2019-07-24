@@ -119,7 +119,7 @@ export class RegisterForm extends React.Component {
           <input className={submitButtonClassnames} type="submit" value="Register"
             onClick={async (e) => {
               e.preventDefault();
-              await registerStore.register();
+              await registerStore.register(() => routerStore.history.push('/thankyou'));
             }}
           />
         </div>

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as style from './style.css';
 import * as classnames from 'classnames/bind';
-import { STORE_LOGIN, STORE_ROUTER, STORE_REGISTER } from 'app/constants';
-import { RouterStore, LoginStore, RegisterStore } from 'app/stores';
+import { STORE_LOGIN, STORE_ROUTER, STORE_REGISTER, STORE_USER } from 'app/constants';
+import { RouterStore, LoginStore, RegisterStore, UserStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classnames.bind(style);
 
-@inject(STORE_LOGIN, STORE_ROUTER, STORE_REGISTER)
+@inject(STORE_LOGIN, STORE_ROUTER, STORE_REGISTER, STORE_USER)
 @observer
 export class LoginForm extends React.Component {
   private handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -41,6 +41,7 @@ export class LoginForm extends React.Component {
     const routerStore = this.props[STORE_ROUTER] as RouterStore;
     const registerStore = this.props[STORE_REGISTER] as RegisterStore;
     const loginStore = this.props[STORE_LOGIN] as LoginStore;
+    const userStore = this.props[STORE_USER] as UserStore;
 
     const submitButtonClassnames = cx({
       submitButton: true,
@@ -90,7 +91,10 @@ export class LoginForm extends React.Component {
           <input className={submitButtonClassnames} type="submit" value="Sign In"
             onClick={(e) => {
               e.preventDefault();
-              loginStore.login();
+              loginStore.login(() => {
+                userStore.authenticate();
+                routerStore.history.push('/profile');
+              });
             }}
           />
         </div>
