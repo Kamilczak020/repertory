@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as style from './style.css';
 import Raven from '../../../assets/images/raven.svg';
-import { STORE_ROUTER } from 'app/constants';
-import { RouterStore } from 'app/stores';
+import { STORE_ROUTER, STORE_USER } from 'app/constants';
+import { RouterStore, UserStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
 
-@inject(STORE_ROUTER)
+@inject(STORE_ROUTER, STORE_USER)
 @observer
 export class Header extends React.Component {
   public render() {
     const routerStore = this.props[STORE_ROUTER] as RouterStore;
+    const userStore = this.props[STORE_USER] as UserStore;
 
     return (
       <div className={style.header}>
@@ -17,7 +18,7 @@ export class Header extends React.Component {
           <hr className={style.line} />
           <ul>
             <li onClick={() => routerStore.push('/')}>Home</li>
-            <li>Watch</li>
+            <li onClick={() => routerStore.push('/watch')}>Watch</li>
           </ul>
         </menu>
         <div className={style.brand}>
@@ -26,8 +27,19 @@ export class Header extends React.Component {
         </div>
         <menu className={style.menuRight}>
           <ul>
-            <li>Profile</li>
-            <li>Settings</li>
+            <li onClick={() => userStore.isAuthenticated ? routerStore.push('/profile') : routerStore.push('/signin')}>
+              {userStore.isAuthenticated ? 'Profile' : 'Sign In'}
+            </li>
+            <li onClick={() => {
+              if (userStore.isAuthenticated) {
+                userStore.signout();
+                routerStore.push('/');
+              } else {
+                routerStore.push('/register');
+              }
+            }}>
+              {userStore.isAuthenticated ? 'Sign Out' : 'Register'}
+            </li>
           </ul>
           <hr className={style.line} />
         </menu>
