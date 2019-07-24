@@ -3,6 +3,7 @@ import { RegistrationError, LoginError, DatabaseError, AuthenticationError } fro
 import { isString } from 'util';
 import User from '../model/user';
 import * as jwt from 'jsonwebtoken';
+import { UserToken } from 'middleware/authenticate';
 
 export interface UserCookie {
   iat: number;
@@ -70,4 +71,17 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
     status: 'success',
     message: `Logged in user "${user.username}"`,
   };
+}
+
+export async function verifyUser(req: Request, res: Response, next: NextFunction) {
+  const token = req.cookies['RepertoryUser'];
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET) as UserToken;
+    return {
+      status: 'success',
+      message: `User authenticated`,
+    };
+  } catch (error) {
+    throw new AuthenticationError('Your session has finished. Please log in again.');
+  }
 }

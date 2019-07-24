@@ -20,7 +20,7 @@ class HttpApp {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(cookieParser());
-    this.express.use(cors());
+    this.express.use(cors({ exposedHeaders: 'Set-Cookie', origin: 'http://localhost:3000', credentials: true }));
   }
 
   private routes(): void {
