@@ -13,6 +13,6 @@
     "variable-name": false,
     "no-small-switch": false,
     "no-magic-numbers": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
   }
 }
