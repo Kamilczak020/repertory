@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { RegistrationError, LoginError, DatabaseError, AuthenticationError } from '../error';
 import { isString } from 'util';
 import User from '../model/user';
+import Blacklist from '../model/blacklist';
 import * as jwt from 'jsonwebtoken';
+import * as uuid from 'uuid/v4';
 import { UserToken } from 'middleware/authenticate';
 
 export interface UserCookie {
@@ -64,7 +66,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
   }
 
   // Secret is here TEMPORAIRLY!
-  const token = jwt.sign({ user: user.username }, process.env.SECRET);
+  const token = jwt.sign({ user: user.username }, process.env.SECRET, { jwtid: uuid() });
   res.cookie('RepertoryUser', token);
 
   return {
@@ -76,12 +78,32 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 export async function verifyUser(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies['RepertoryUser'];
   try {
-    const decoded = jwt.verify(token, process.env.SECRET) as UserToken;
+    if (await Blacklist.findOne({ where: { token }})) {
+      throw new AuthenticationError('Your session has finished. Please log in again.');
+    }
+
+    jwt.verify(token, process.env.SECRET);
     return {
       status: 'success',
       message: `User authenticated`,
     };
   } catch (error) {
     throw new AuthenticationError('Your session has finished. Please log in again.');
+  }
+}
+
+export async function logoutUser(req: Request, res: Response, next: NextFunction) {
+  const token = req.cookies['RepertoryUser'];
+  try {
+    jwt.verify(token, process.env.SECRET);
+  } catch (error) {
+    throw new AuthenticationError('Your session has finished. Please log in again.');
+  }
+
+  try {
+    const blacklistedToken = new Blacklist({ token });
+    await blacklistedToken.save();
+  } catch (error) {
+    throw new DatabaseError();
   }
 }
