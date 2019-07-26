@@ -4,8 +4,13 @@ import * as classnames from 'classnames/bind';
 
 const cx = classnames.bind(style);
 
+export interface ModalWindowProps {
+  showModal: () => void;
+}
+
 export interface ModalWindowState {
   open: boolean;
+  children?: Element
 }
 
 export class ModalWindow extends React.Component<{}, ModalWindowState> {
@@ -21,9 +26,7 @@ export class ModalWindow extends React.Component<{}, ModalWindowState> {
 
     return (
       <div className={modalContainerClassnames}>
-        <div className={style.contentContainer}>
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
     );
   }

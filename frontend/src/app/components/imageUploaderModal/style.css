@@ -1,0 +1,41 @@
+.imageUploaderModal {
+  width: 600px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: white;
+}
+
+.imageUploaderModal .dropzone {
+  width: 80%;
+  height: 150px;
+  margin: 20px auto;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border: 3px #00223E dashed;
+  border-radius: 30px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 102, 185, 0.15);
+  }
+
+  &.dragOver {
+    background-color: rgba(0, 102, 185, 0.15);
+  }
+
+  & p {
+    text-align: center;
+    font-weight: 600;
+    color: #00223E;
+  }
+}

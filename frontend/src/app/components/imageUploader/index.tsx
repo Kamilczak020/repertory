@@ -4,6 +4,8 @@ import * as classnames from 'classnames/bind';
 import { STORE_ROUTER } from 'app/constants';
 import { inject, observer } from 'mobx-react';
 import PlaceholderImage from '../../../assets/images/placeholder-user.jpg';
+import { ModalWindow } from '../modalWindow';
+import { ImageUploaderModal } from '../imageUploaderModal';
 
 const cx = classnames.bind(style);
 
@@ -24,6 +26,9 @@ export class ImageUploader extends React.Component<ImageUploaderProps> {
       <div className={imageUploaderContainerClassnames}>
         <img className={style.profilePicture} src={PlaceholderImage} />
         <button>Change Image</button>
+        <ModalWindow>
+          <ImageUploaderModal />
+        </ModalWindow>
       </div>
     );
   }
