@@ -1,11 +1,15 @@
-import { observable, action } from 'mobx';
+import { observable, runInAction, computed } from 'mobx';
+import { UIModel } from 'app/model/uiModel';
 
 export class UIStore {
-  @observable
-  public uploadImageModalOpen = false;
-
-  @action
-  public openUploadImageModal() {
-    this.uploadImageModalOpen = true;
+  public constructor() {
+    this.model = new UIModel();
   }
+
+  @observable
+  private model: UIModel;
+
+  @computed
+  public get imageModalOpen(): boolean { return this.model.imageModalOpen; }
+  public set imageModalOpen(value: boolean) { runInAction('set imageModalOpen', () => this.model.imageModalOpen = value); }
 }
