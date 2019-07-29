@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900|Slabo+27px&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.rootContainer {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+
+  background: #FFA17F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(bottom, #00223E, #FFA17F);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #00223E, #FFA17F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
