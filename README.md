@@ -30,3 +30,5 @@ All resources used are distributed under Creative Commons 3.0 license, unless ma
 6. Person with magnifying glass: [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [flaticon.com](https://www.flaticon.com/)
 7. Edit icon: [Chanut](https://www.flaticon.com/authors/chanut) from [flaticon.com](https://www.flaticon.com/)
 8. Add icon: [Eleanor Wang](https://www.flaticon.com/authors/eleonor-wang) from [flaticon.com](https://www.flaticon.com/)
+9. Cross icon: [Balaraj Chana](https://www.flaticon.com/authors/balraj-chana) from [flaticon.com](https://www.flaticon.com/)
+10. Upload icon: [Elegant Themes](https://www.flaticon.com/authors/elegant-themes) from [flaticon.com](https://www.flaticon.com/)
