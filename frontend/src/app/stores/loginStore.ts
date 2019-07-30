@@ -1,3 +1,4 @@
+import * as qs from 'qs';
 import { action, computed, observable } from 'mobx';
 import { API } from 'app/api';
 
@@ -27,7 +28,9 @@ export class LoginStore {
   public async login(action: () => void): Promise<void> {
     this.clear();
     try {
-      await API.post('/auth/login', { username: this.username, password: this.password });
+      await API.post('/auth/login', qs.stringify({ username: this.username, password: this.password }), { headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }});
       action();
     } catch (error) {
       this.loginFailed = true;

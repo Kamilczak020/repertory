@@ -1,3 +1,4 @@
+import * as qs from 'qs';
 import { computed, observable, action } from 'mobx';
 import { API } from 'app/api';
 
@@ -39,7 +40,9 @@ export class RegisterStore {
   public async register(redirectAction: () => void): Promise<void> {
     this.clear();
     try {
-      await API.post('/auth/register', { username: this.username, email: this.email, password: this.password });
+      await API.post('/auth/register', qs.stringify({ username: this.username, email: this.email, password: this.password }), { headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }});
       redirectAction();
     } catch (error) {
       this.failMessage = error.response.data.reason;
