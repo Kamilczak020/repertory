@@ -1,19 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
+import User from '../model/user';
 import UserImage from '../model/userImage';
 import { DatabaseError, RequestError } from '../error';
 
 export async function uploadUserImage(req: Request, res: Response, next: NextFunction) {
-  console.log(req.file);
-
   if (req.file.size > 5000000) {
     throw new RequestError('File size too large.');
   }
 
-  const userImage = new UserImage({
-    data: req.file.buffer,
-  });
-
   try {
+    const user = await User.findOne({ where: { id: res.locals.user }});
+    const userImage = new UserImage({
+      data: req.file.buffer,
+      userId: user.id,
+    });
+
     await userImage.save();
     return {
       status: 'success',
@@ -22,4 +23,21 @@ export async function uploadUserImage(req: Request, res: Response, next: NextFun
   } catch (error) {
     throw new DatabaseError('Cannot save image file.');
   }
+}
+
+export async function getUserProfile(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.user }, include: [{ model: UserImage }]});
+    return {
+      status: 'success',
+      message: 'Fetched user profile',
+      user: {
+        username: user.username,
+        avatar: user.userImage.data,
+      },
+    };
+  } catch (error) {
+    throw new DatabaseError('Cannot fetch user profile.');
+  }
+
 }

@@ -66,7 +66,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
   }
 
   // Secret is here TEMPORAIRLY!
-  const token = jwt.sign({ user: user.username }, process.env.SECRET, { jwtid: uuid() });
+  const token = jwt.sign({ user: user.id }, process.env.SECRET, { jwtid: uuid() });
   res.cookie('RepertoryUser', token);
 
   return {
