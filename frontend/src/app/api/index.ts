@@ -1,16 +1,22 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import * as qs from 'qs';
 
 export abstract class API {
-  public static post(route: string, body?: object, config?: AxiosRequestConfig) {
+  public static post(route: string, body?: any, config?: AxiosRequestConfig) {
     const uri = 'http://localhost:3001';
 
-    return axios.post(uri + route, qs.stringify(body), {
+    return axios.post(uri + route, body, {
       responseType: 'json',
       withCredentials: true,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
+      ...config
+    });
+  }
+
+  public static get(route: string, config?: AxiosRequestConfig) {
+    const uri = 'http://localhost:3001';
+
+    return axios.get(uri + route, {
+      responseType: 'json',
+      withCredentials: true,
       ...config
     });
   }
