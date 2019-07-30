@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as logger from 'morgan';
 import authRouter from './router/authRouter';
+import userRouter from './router/userRouter';
 
 // Creates and configures an ExpressJS web server.
 class HttpApp {
@@ -25,6 +26,7 @@ class HttpApp {
 
   private routes(): void {
     this.express.use('/auth', authRouter);
+    this.express.use('/user', userRouter);
   }
 }
 
