@@ -7,7 +7,6 @@ const cx = classnames.bind(style);
 export interface ProgressBarProps {
   className?: string;
   value: number;
-  color: string;
 }
 
 export class ProgressBar extends React.Component<ProgressBarProps> {
@@ -19,7 +18,7 @@ export class ProgressBar extends React.Component<ProgressBarProps> {
 
     return (
       <div className={progressBarClassnames}>
-        <div className={style.progress} style={{ width: `${this.props.value}%`, backgroundColor: this.props.color }} />
+        <div className={style.progress} style={{ width: `${this.props.value}%` }} />
       </div>
     );
   }

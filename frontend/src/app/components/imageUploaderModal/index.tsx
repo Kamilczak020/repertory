@@ -10,6 +10,7 @@ import Dropzone from 'react-dropzone';
 import Cropper from 'react-easy-crop';
 import CloseIcon from '../../../assets/images/cross.svg';
 import UploadIcon from '../../../assets/images/upload.svg';
+import { API } from 'app/api';
 
 const cx = classnames.bind(style);
 
@@ -19,6 +20,7 @@ export interface ImageUploaderModalState {
   crop: { x: number, y: number };
   zoom: number;
   aspect: number;
+  uploadProgress: number;
 }
 
 @inject(STORE_ROUTER, STORE_UI)
@@ -30,6 +32,7 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
     crop: { x: 0, y: 0 },
     zoom: 1,
     aspect: 1 / 1,
+    uploadProgress: 0
   }
 
   private handleClose() {
@@ -37,21 +40,38 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
     uiStore.imageModalOpen = false;
   }
 
-  private handleFileUpload(acceptedFiles: Array<File>) {
+  private handleFileLoad(acceptedFiles: Array<File>) {
     this.setState({ isDragOver: false });
 
     // We only ever accept a single file, and that is not going to change
     const file = acceptedFiles[0];
     const reader = new FileReader();
 
-    reader.onload = () => {
-      this.setState({ image: reader.result });
-      toast.success('Image uploaded successfully.', { className: style.toast }); 
-    }
+    reader.onload = () => this.setState({ image: reader.result });
     reader.onerror = () => toast.error('Image upload failed. Please try again.', { className: style.toastError });
-    reader.onloadend = () => console.log('wowzo');
 
     reader.readAsDataURL(file);
+  }
+
+  private async handleFileUpload() {
+    const formData = new FormData();
+    formData.append('userImage', this.state.image);
+
+    try {
+      await API.post('/user/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          this.setState({ uploadProgress: progressEvent.loaded / progressEvent.total * 100 });
+        },
+      });
+
+      toast.success('Image uploaded successfully.', { className: style.toast });
+    } catch(error) {
+      console.log(error);
+      toast.error('Failed to upload image.', { className: style.toastError });
+    }
   }
 
   public render() {
@@ -73,29 +93,30 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
           <button className={style.closeButton}>
             <CloseIcon className={style.icon} viewBox="0 0 612 612" onClick={()=> this.handleClose()} />
           </button>
+          <h3>Upload Profile Picture</h3>
           <div className={style.cropArea}>
             <Cropper image={this.state.image} crop={this.state.crop} zoom={this.state.zoom} aspect={this.state.aspect}
               zoomSpeed={0.4}
+              maxZoom={5}
               onCropChange={(crop) => this.setState({ crop })} 
               onZoomChange={(zoom) => this.setState({ zoom })} />
           </div>
-          <h3>Upload Profile Picture</h3>
           <Dropzone accept={['image/png', 'image/jpeg']} multiple={false}
             onDragEnter={() => this.setState({ isDragOver: true })} 
             onDragLeave={() => this.setState({ isDragOver: false })}
-            onDrop={(acceptedFiles) => this.handleFileUpload(acceptedFiles)}>
+            onDrop={(acceptedFiles) => this.handleFileLoad(acceptedFiles)}>
             {({ getRootProps, getInputProps }) => (
               <section>
                 <div className={dropzoneClassNames} {...getRootProps()}>
                   <input {...getInputProps()} />
                   <p>Drag 'n' drop image file here, or click to select a file</p>
                   <UploadIcon className={style.icon} viewBox="0 0 508.551 508.551" />
-                  <ProgressBar className={style.progressBar} value={50} color="#00223E" />
                 </div>
               </section>
             )}
           </Dropzone>
-          <button>Upload</button>
+          <ProgressBar className={style.progressBar} value={this.state.uploadProgress} />
+          <button onClick={async () => this.handleFileUpload()}>Upload</button>
         </div>
       </div>
     );
