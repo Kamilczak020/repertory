@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { apiMethod } from '../util/apiMethod';
-import { loginUser, logoutUser, registerUser, verifyUser } from '../controller/userController';
+import { loginUser, logoutUser, registerUser, verifyUser } from '../controller/authController';
 
 export class AuthRouter {
   public router: Router;
