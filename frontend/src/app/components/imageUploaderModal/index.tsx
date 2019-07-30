@@ -1,43 +1,48 @@
 import * as React from 'react';
 import * as style from './style.css';
 import * as classnames from 'classnames/bind';
-import { STORE_ROUTER, STORE_UI } from 'app/constants';
+import { STORE_ROUTER, STORE_PROFILE } from 'app/constants';
 import { inject, observer } from 'mobx-react';
-import { UIStore } from 'app/stores/uiStore';
+import { ProfileStore } from 'app/stores/profileStore';
 import { ProgressBar } from '../progressBar';
 import { toast } from 'react-toastify';
+import { API } from 'app/api';
+import DataForm from 'form-data';
 import Dropzone from 'react-dropzone';
 import Cropper from 'react-easy-crop';
 import CloseIcon from '../../../assets/images/cross.svg';
 import UploadIcon from '../../../assets/images/upload.svg';
-import { API } from 'app/api';
 
 const cx = classnames.bind(style);
 
 export interface ImageUploaderModalState {
   isDragOver: boolean;
-  image: string | ArrayBuffer;
+  image: Blob;
+  imagePreview: string | ArrayBuffer;
   crop: { x: number, y: number };
+  cropArea: { x: number, y: number, width: number, height: number };
   zoom: number;
   aspect: number;
   uploadProgress: number;
 }
 
-@inject(STORE_ROUTER, STORE_UI)
+@inject(STORE_ROUTER, STORE_PROFILE)
 @observer
 export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalState> {
   public state = {
     isDragOver: false,
     image: undefined,
+    imagePreview: undefined,
     crop: { x: 0, y: 0 },
+    cropArea: { x: 0, y: 0, width: 0, height: 0 },
     zoom: 1,
     aspect: 1 / 1,
-    uploadProgress: 0
+    uploadProgress: 0,
   }
 
   private handleClose() {
-    const uiStore = this.props[STORE_UI] as UIStore;
-    uiStore.imageModalOpen = false;
+    const profileStore = this.props[STORE_PROFILE] as ProfileStore;
+    profileStore.imageModalOpen = false;
   }
 
   private handleFileLoad(acceptedFiles: Array<File>) {
@@ -47,26 +52,26 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
     const file = acceptedFiles[0];
     const reader = new FileReader();
 
-    reader.onload = () => this.setState({ image: reader.result });
+    reader.onload = () => this.setState({ imagePreview: reader.result });
     reader.onerror = () => toast.error('Image upload failed. Please try again.', { className: style.toastError });
 
     reader.readAsDataURL(file);
   }
 
   private async handleFileUpload() {
-    const formData = new FormData();
-    formData.append('userImage', this.state.image);
+    const profileStore = this.props[STORE_PROFILE] as ProfileStore;
 
+    this.cropImage();
+    const form = new DataForm();
+    const image = await this.cropImage();
+    form.append('userImage', image, 'file.png');
     try {
-      await API.post('/user/image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      await API.post('/user/image', form, {
         onUploadProgress: (progressEvent: ProgressEvent) => {
           this.setState({ uploadProgress: progressEvent.loaded / progressEvent.total * 100 });
         },
       });
-
+      profileStore.blobAvatar = image;
       toast.success('Image uploaded successfully.', { className: style.toast });
     } catch(error) {
       console.log(error);
@@ -74,8 +79,28 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
     }
   }
 
+  private async cropImage(): Promise<Blob> {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 300;
+      canvas.height = 300;
+      console.log(this.state.cropArea);
+      const context = canvas.getContext('2d');
+      const image = new Image();
+      image.src = this.state.imagePreview;
+      console.log(image.height, image.width);
+      context.drawImage(image, 
+        this.state.cropArea.x, this.state.cropArea.y,
+        this.state.cropArea.width, this.state.cropArea.height,
+        0, 0,
+        300, 300
+      );
+       canvas.toBlob(resolve, 'image/png', 1);
+    });
+  }
+
   public render() {
-    const uiStore = this.props[STORE_UI] as UIStore;
+    const profileStore = this.props[STORE_PROFILE] as ProfileStore;
 
     const dropzoneClassNames = cx({
       dropzone: true,
@@ -84,7 +109,7 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
 
     const modalContainerClassnames = cx({
       modalContainer: true,
-      open: uiStore.imageModalOpen
+      open: profileStore.imageModalOpen
     });
 
     return (
@@ -95,11 +120,12 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
           </button>
           <h3>Upload Profile Picture</h3>
           <div className={style.cropArea}>
-            <Cropper image={this.state.image} crop={this.state.crop} zoom={this.state.zoom} aspect={this.state.aspect}
+            <Cropper image={this.state.imagePreview} crop={this.state.crop} zoom={this.state.zoom} aspect={this.state.aspect}
               zoomSpeed={0.4}
               maxZoom={5}
               onCropChange={(crop) => this.setState({ crop })} 
-              onZoomChange={(zoom) => this.setState({ zoom })} />
+              onZoomChange={(zoom) => this.setState({ zoom })}
+              onCropComplete={(crop, cropArea) => this.setState({ cropArea })} />
           </div>
           <Dropzone accept={['image/png', 'image/jpeg']} multiple={false}
             onDragEnter={() => this.setState({ isDragOver: true })} 

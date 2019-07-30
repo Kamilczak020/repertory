@@ -1,7 +1,9 @@
 .imageUploaderContainer {
   max-width: 300px;
+  height: 350px;
   display: flex;
   flex-direction: column;
+  background-color: #dddddd;
 }
 
 .imageUploaderContainer .profilePicture {
