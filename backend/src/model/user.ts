@@ -1,11 +1,13 @@
-import {Table, Column, Model, BeforeCreate } from 'sequelize-typescript';
+import {Table, Column, Model, BeforeCreate, ForeignKey, HasOne } from 'sequelize-typescript';
 import { DataType, PrimaryKey, Default, Unique, AllowNull, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+import UserImage from './userImage';
 import * as bcrypt from 'bcryptjs';
 
 export interface UserProperties {
   id?: string;
   username: string;
   password: string;
+  userImage: UserImage;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -34,6 +36,9 @@ export default class User extends Model<User> implements UserProperties {
   @AllowNull(false)
   @Column(DataType.STRING)
   public password: string;
+
+  @HasOne(() => UserImage)
+  public userImage: UserImage;
 
   @CreatedAt
   public createdAt?: Date;
