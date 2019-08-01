@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { BaseContainer } from '../BaseContainer';
 import { STORE_PROFILE, STORE_USER, STORE_ROUTER } from 'app/constants';
 import { RouterStore, UserStore, ProfileStore } from 'app/stores';
-import { ImageUploaderModal } from 'app/components/modals';
+import { ImageUploaderModal, EmailModal, BioModal, BirthdayModal, LocationModal, PasswordModal } from 'app/components/modals';
 import { format } from 'date-fns';
 import { inject, observer } from 'mobx-react';
 import EditIcon from 'assets/images/edit.svg';
@@ -38,7 +38,6 @@ export class ProfilePage extends React.Component {
                 <img className={style.profilePicture} src={profileStore.avatar || PlaceholderImage} />
                 <button onClick={() => profileStore.imageModalOpen = true}>Change Image</button>
               </div>
-              <ImageUploaderModal />
               <div className={style.userDetails}>
                 <h2>{profileStore.username || 'Repertory User'}</h2>
                 <p>Standard User</p>
@@ -47,19 +46,19 @@ export class ProfilePage extends React.Component {
                     <div className={style.fields}>
                       <p><span>E-mail:</span></p>
                       <p>{profileStore.email || 'example@gmail.com'}</p>
-                      <EditIcon viewBox="0 0 300 300" className={style.icon} />
+                      <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.emailModalOpen = true} />
                       <p><span>Password:</span></p>
                       <p>****************</p>
-                      <EditIcon viewBox="0 0 300 300" className={style.icon} />
+                      <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.passwordModalOpen = true} />
                     </div>
                     <h3>Basic information</h3>
                     <div className={style.fields}>
                       <p><span>Birthday:</span></p>
                       <p>{profileStore.birthday ? format(profileStore.birthday, 'DD-MM-YYYY') : 'Not provided'}</p>
-                      <EditIcon viewBox="0 0 300 300" className={style.icon} />
+                      <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.birthdayModalOpen = true} />
                       <p><span>Location:</span></p>
                       <p>{profileStore.location || 'Not provided'}</p>
-                      <EditIcon viewBox="0 0 300 300" className={style.icon} />
+                      <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.locationModalOpen = true} />
                     </div>
                 </div>
               </div>
@@ -67,7 +66,7 @@ export class ProfilePage extends React.Component {
                 <h3>Bio</h3>
                 <div className={style.bioFields}>
                   <p>{profileStore.bio || 'This user prefers to keep an aura of mystery around them.'}</p>
-                  <EditIcon viewBox="0 0 300 300" className={style.icon} />
+                  <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.bioModalOpen = true} />
                 </div>
               </div>
             </div>
@@ -77,6 +76,12 @@ export class ProfilePage extends React.Component {
                 <p>Create room</p>
               </div>
             </div>
+            <BioModal />
+            <BirthdayModal />
+            <EmailModal />
+            <ImageUploaderModal />
+            <LocationModal />
+            <PasswordModal />
           </div>
         </div>
       </BaseContainer>
