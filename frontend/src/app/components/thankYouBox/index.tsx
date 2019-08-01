@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { STORE_ROUTER } from 'app/constants';
 import { RouterStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
-import ThankYou from '../../../assets/images/thank-you.svg';
+import ThankYou from 'assets/images/thank-you.svg';
 
 @inject(STORE_ROUTER)
 @observer
