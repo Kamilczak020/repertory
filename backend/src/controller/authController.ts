@@ -5,7 +5,6 @@ import User from '../model/user';
 import Blacklist from '../model/blacklist';
 import * as jwt from 'jsonwebtoken';
 import * as uuid from 'uuid/v4';
-import { UserToken } from 'middleware/authenticate';
 
 export interface UserCookie {
   iat: number;
