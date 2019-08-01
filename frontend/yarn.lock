@@ -855,6 +855,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/googlemaps@*":
+  version "3.37.0"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.37.0.tgz#85596a2b93ded3850ac83ff575b66c34053c0ac8"
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -899,6 +903,13 @@
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@types/react-easy-crop/-/react-easy-crop-1.13.0.tgz#1441e174acfa99fd22889931933aee49ddc84c37"
   dependencies:
+    "@types/react" "*"
+
+"@types/react-geosuggest@^2.7.8":
+  version "2.7.8"
+  resolved "https://registry.yarnpkg.com/@types/react-geosuggest/-/react-geosuggest-2.7.8.tgz#f3753cb04194f2124cbbca912619c3e36f8db4db"
+  dependencies:
+    "@types/googlemaps" "*"
     "@types/react" "*"
 
 "@types/react-router-dom@^4.3.4":
@@ -3621,6 +3632,10 @@ lodash._reinterpolate@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
 
+lodash.debounce@^4.0.6:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -5159,6 +5174,13 @@ react-easy-crop@^1.14.0:
   dependencies:
     "@emotion/core" "^10.0.7"
     "@emotion/styled" "^10.0.7"
+
+react-geosuggest@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/react-geosuggest/-/react-geosuggest-2.12.0.tgz#dcbc799708383c89701fcb6d307d9537df239a4d"
+  dependencies:
+    classnames "^2.2.6"
+    lodash.debounce "^4.0.6"
 
 react-hot-loader@^4.6.3:
   version "4.12.0"
