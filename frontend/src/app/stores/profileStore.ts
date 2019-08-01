@@ -50,8 +50,28 @@ export class ProfileStore {
   public set username(value: string) { runInAction('set username', () => this.model.username = value); }
 
   @computed
+  public get bioModalOpen(): boolean { return this.model.bioModalOpen; }
+  public set bioModalOpen(value: boolean) { runInAction('set bioModalOpen', () => this.model.bioModalOpen = value); }
+
+  @computed
+  public get birthdayModalOpen(): boolean { return this.model.birthdayModalOpen; }
+  public set birthdayModalOpen(value: boolean) { runInAction('set birthdayModalOpen', () => this.model.birthdayModalOpen = value); }
+
+  @computed
+  public get emailModalOpen(): boolean { return this.model.emailModalOpen; }
+  public set emailModalOpen(value: boolean) { runInAction('set emailModalOpen', () => this.model.emailModalOpen = value); }
+
+  @computed
   public get imageModalOpen(): boolean { return this.model.imageModalOpen; }
   public set imageModalOpen(value: boolean) { runInAction('set imageModalOpen', () => this.model.imageModalOpen = value); }
+
+  @computed
+  public get locationModalOpen(): boolean { return this.model.locationModalOpen; }
+  public set locationModalOpen(value: boolean) { runInAction('set locationModalOpen', () => this.model.locationModalOpen = value); }
+
+  @computed
+  public get passwordModalOpen(): boolean { return this.model.passwordModalOpen; }
+  public set passwordModalOpen(value: boolean) { runInAction('set passwordModalOpen', () => this.model.passwordModalOpen = value); }
 
   @action
   public async fetchUserInfo() {
