@@ -9,8 +9,8 @@ import { toast } from 'react-toastify';
 import { API } from 'app/api';
 import Dropzone from 'react-dropzone';
 import Cropper from 'react-easy-crop';
-import CloseIcon from 'assets/images/cross.svg';
 import UploadIcon from 'assets/images/upload.svg';
+import { BaseModal } from '../baseModal';
 
 const cx = classnames.bind(style);
 
@@ -37,11 +37,6 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
     zoom: 1,
     aspect: 1 / 1,
     uploadProgress: 0,
-  }
-
-  private handleClose() {
-    const profileStore = this.props[STORE_PROFILE] as ProfileStore;
-    profileStore.imageModalOpen = false;
   }
 
   private handleFileLoad(acceptedFiles: Array<File>) {
@@ -106,44 +101,34 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
       dragOver: this.state.isDragOver
     });
 
-    const modalContainerClassnames = cx({
-      modalContainer: true,
-      open: profileStore.imageModalOpen
-    });
-
     return (
-      <div className={modalContainerClassnames}>
-        <div className={style.imageUploaderModal}>
-          <button className={style.closeButton}>
-            <CloseIcon className={style.icon} viewBox="0 0 612 612" onClick={()=> this.handleClose()} />
-          </button>
-          <h3>Upload Profile Picture</h3>
-          <div className={style.cropArea}>
-            <Cropper image={this.state.imagePreview} crop={this.state.crop} zoom={this.state.zoom} aspect={this.state.aspect}
-              zoomSpeed={0.4}
-              maxZoom={5}
-              onCropChange={(crop) => this.setState({ crop })} 
-              onZoomChange={(zoom) => this.setState({ zoom })}
-              onCropComplete={(crop, cropArea) => this.setState({ cropArea })} />
-          </div>
-          <Dropzone accept={['image/png', 'image/jpeg']} multiple={false}
-            onDragEnter={() => this.setState({ isDragOver: true })} 
-            onDragLeave={() => this.setState({ isDragOver: false })}
-            onDrop={(acceptedFiles) => this.handleFileLoad(acceptedFiles)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div className={dropzoneClassNames} {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag 'n' drop image file here, or click to select a file</p>
-                  <UploadIcon className={style.icon} viewBox="0 0 508.551 508.551" />
-                </div>
-              </section>
-            )}
-          </Dropzone>
-          <ProgressBar className={style.progressBar} value={this.state.uploadProgress} />
-          <button onClick={async () => this.handleFileUpload()}>Upload</button>
+      <BaseModal className={style.imageModal} isOpen={profileStore.imageModalOpen} title="Upload Image"
+        onClose={() => profileStore.imageModalOpen = false}
+        onSave={() => this.handleFileUpload()}>
+        <div className={style.cropArea}>
+          <Cropper image={this.state.imagePreview} crop={this.state.crop} zoom={this.state.zoom} aspect={this.state.aspect}
+            zoomSpeed={0.4}
+            maxZoom={5}
+            onCropChange={(crop) => this.setState({ crop })} 
+            onZoomChange={(zoom) => this.setState({ zoom })}
+            onCropComplete={(crop, cropArea) => this.setState({ cropArea })} />
         </div>
-      </div>
+        <Dropzone accept={['image/png', 'image/jpeg']} multiple={false}
+          onDragEnter={() => this.setState({ isDragOver: true })} 
+          onDragLeave={() => this.setState({ isDragOver: false })}
+          onDrop={(acceptedFiles) => this.handleFileLoad(acceptedFiles)}>
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <div className={dropzoneClassNames} {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop image file here, or click to select a file</p>
+                <UploadIcon className={style.icon} viewBox="0 0 508.551 508.551" />
+              </div>
+            </section>
+          )}
+        </Dropzone>
+        <ProgressBar className={style.progressBar} value={this.state.uploadProgress} />
+      </BaseModal>
     );
   }
 }
