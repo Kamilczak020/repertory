@@ -1,25 +1,34 @@
-import { observable, action } from 'mobx';
+import { observable, computed, runInAction, action } from 'mobx';
 import { API } from 'app/api';
+import { UserModel } from 'app/model/userModel';
 
 export class UserStore {
   @observable
-  public username: string;
-
-  @observable
-  public isAuthenticated = false;
+  public model: UserModel;
 
   public constructor() {
-    API.post('/auth/verify').then(() => this.isAuthenticated = true).catch(() => this.isAuthenticated = false);
+    this.model = new UserModel();
+    this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
+
+    API.post('/auth/verify')
+      .then(() => this.model.isAuthenticated = true)
+      .catch(() => this.model.isAuthenticated = false);
   }
 
-  @action
-  public authenticate() {
-    this.isAuthenticated = true;
-  }
+  @computed
+  public get username(): string { return this.model.username; }
+  public set username(value: string) { runInAction('set isAuthenticated', () => this.model.username = value); }
+
+  @computed
+  public get isAuthenticated(): boolean { return this.model.isAuthenticated; }
+  public set isAuthenticated(value: boolean) { runInAction('set isAuthenticated', () => {
+    this.model.isAuthenticated = value;
+    localStorage.setItem('isAuthenticated', JSON.stringify(value));
+  }); }
 
   @action
-  public async signout() {
+  public signout() {
+    API.post('/auth/logout');
     this.isAuthenticated = false;
-    await API.post('/auth/logout').catch((error) => console.log(error));
   }
 }

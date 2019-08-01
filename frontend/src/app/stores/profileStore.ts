@@ -11,12 +11,16 @@ export class ProfileStore {
   private model: ProfileModel;
 
   @computed
-  public get username(): string { return this.model.username; }
-  public set username(value: string) { runInAction('set username', () => this.model.username = value); }
-
-  @computed
   public get avatar(): string { return this.model.avatar; }
   public set avatar(value: string) { runInAction('set avatar', () => this.model.avatar = value); }
+
+  @computed
+  public get bio(): string { return this.model.bio; }
+  public set bio(value: string) { runInAction('set avatar', () => this.model.bio = value); }
+
+  @computed
+  public get birthday(): Date { return this.model.birthday; }
+  public set birthday(value: Date) { runInAction('set avatar', () => this.model.birthday = value); }
 
   @computed
   public get blobAvatar(): Blob {
@@ -34,15 +38,29 @@ export class ProfileStore {
   }
 
   @computed
+  public get email(): string { return this.model.email; }
+  public set email(value: string) { runInAction('set avatar', () => this.model.email = value); }
+
+  @computed
+  public get location(): string { return this.model.location; }
+  public set location(value: string) { runInAction('set avatar', () => this.model.location = value); }
+
+  @computed
+  public get username(): string { return this.model.username; }
+  public set username(value: string) { runInAction('set username', () => this.model.username = value); }
+
+  @computed
   public get imageModalOpen(): boolean { return this.model.imageModalOpen; }
   public set imageModalOpen(value: boolean) { runInAction('set imageModalOpen', () => this.model.imageModalOpen = value); }
 
   @action
   public async fetchUserInfo() {
     const response = await API.get('/user/profile');
-    console.log(response);
-    console.log(response.data.user.avatar);
     this.username = response.data.user.username;
+    this.email = response.data.user.email;
+    this.location = response.data.user.location;
+    this.birthday = response.data.user.birthday;
+    this.bio = response.data.user.bio;
     this.blobAvatar = new Blob([new Uint8Array(response.data.user.avatar.data)], { type: 'image/png' });
   }
 }
