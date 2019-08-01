@@ -20,6 +20,23 @@ export class ProfileModel {
   @observable
   public username: string;
 
+  /* Modals */
+
+  @observable
+  public bioModalOpen: boolean;
+
+  @observable
+  public birthdayModalOpen: boolean;
+
+  @observable
+  public emailModalOpen: boolean;
+
   @observable
   public imageModalOpen: boolean;
+
+  @observable
+  public locationModalOpen: boolean;
+
+  @observable
+  public passwordModalOpen: boolean;
 }
