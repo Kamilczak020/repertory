@@ -19,7 +19,7 @@
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
-      "images/*": ["assets/images/*"]
+      "assets/*": ["assets/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

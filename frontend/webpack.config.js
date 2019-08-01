@@ -19,6 +19,7 @@ module.exports = {
   },
   output: {
     path: outPath,
+    publicPath: '/',
     filename: isProduction ? '[contenthash].js' : '[hash].js',
     chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js'
   },
@@ -29,7 +30,8 @@ module.exports = {
     // (jsnext:main directs not usually distributable es6 format, but es6 sources)
     mainFields: ['module', 'browser', 'main'],
     alias: {
-      app: path.resolve(__dirname, 'src/app/')
+      app: path.resolve(__dirname, 'src/app/'),
+      assets: path.resolve(__dirname, 'src/assets/')
     }
   },
   module: {
