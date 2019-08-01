@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as style from './style.css';
-import Raven from '../../../assets/images/raven.svg';
 import { STORE_ROUTER, STORE_USER } from 'app/constants';
 import { RouterStore, UserStore } from 'app/stores';
 import { inject, observer } from 'mobx-react';
+import Raven from 'assets/images/raven.svg';
 
 @inject(STORE_ROUTER, STORE_USER)
 @observer
@@ -33,7 +33,7 @@ export class Header extends React.Component {
             <li onClick={() => {
               if (userStore.isAuthenticated) {
                 userStore.signout();
-                routerStore.push('/');
+                routerStore.push('/signin');
               } else {
                 routerStore.push('/register');
               }
