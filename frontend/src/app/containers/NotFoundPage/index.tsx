@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { inject, observer } from 'mobx-react';
 import { STORE_ROUTER } from 'app/constants';
 import { RouterStore } from 'app/stores';
-import CrowOnSkull from '../../../assets/images/crow-on-skull.png';
+import CrowOnSkull from 'assets/images/crow-on-skull.png';
 import { BaseContainer } from 'app/containers/BaseContainer';
 
 @inject(STORE_ROUTER)

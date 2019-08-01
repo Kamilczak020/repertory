@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as style from './style.css';
 import { BaseContainer } from 'app/containers/BaseContainer';
-import Television from '../../../assets/images/television.svg';
-import Discussion from '../../../assets/images/discussion.svg';
-import Personalize from '../../../assets/images/personalize.svg';
+import Television from 'assets/images/television.svg';
+import Discussion from 'assets/images/discussion.svg';
+import Personalize from 'assets/images/personalize.svg';
 
 export class HomePage extends React.Component {
   public render() {
