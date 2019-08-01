@@ -22,7 +22,11 @@ export function authenticated(BaseComponent: React.ComponentClass) {
     }
 
     public render() {
-      return <BaseComponent {...this.props} />;
+      const userStore = this.props[STORE_USER] as UserStore;
+
+      return userStore.isAuthenticated 
+      ? <BaseComponent {...this.props} />
+      : null;
     }
   }
 
