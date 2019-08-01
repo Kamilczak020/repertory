@@ -9,13 +9,18 @@ export async function uploadUserImage(req: Request, res: Response, next: NextFun
   }
 
   try {
-    const user = await User.findOne({ where: { id: res.locals.user }});
-    const userImage = new UserImage({
-      data: req.file.buffer,
-      userId: user.id,
-    });
+    const user = await User.findOne({ where: { id: res.locals.user }, include: [{ model: UserImage }]});
 
-    await userImage.save();
+    if (user.userImage) {
+      user.userImage.update({ data: req.file.buffer });
+    } else {
+      const userImage = new UserImage({
+        data: req.file.buffer,
+        userId: user.id,
+      });
+      await userImage.save();
+    }
+
     return {
       status: 'success',
       message: 'Image uploaded',
@@ -33,7 +38,10 @@ export async function getUserProfile(req: Request, res: Response, next: NextFunc
       message: 'Fetched user profile',
       user: {
         username: user.username,
-        avatar: user.userImage.data,
+        email: user.email,
+        birthday: user.birthday,
+        location: user.location,
+        avatar: user.userImage ? user.userImage.data : undefined,
       },
     };
   } catch (error) {
