@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RegisterForm } from 'app/components/registerForm';
+import { RegisterForm } from 'app/components/forms';
 import { BaseContainer } from 'app/containers/BaseContainer';
 
 export class RegisterPage extends React.Component {
