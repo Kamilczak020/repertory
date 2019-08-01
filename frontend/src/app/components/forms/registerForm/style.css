@@ -1,0 +1,142 @@
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 550px;
+  max-width: 700px;
+  margin: auto;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+}
+
+.registerForm .formHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+  width: 100%;
+
+  & button {
+    padding: 0 0 4px 0;
+    margin: 0 20px;
+
+    text-transform: uppercase;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 700;
+
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    color: #00223E;
+    cursor: pointer;
+    transition: color 0.25s;
+
+    &:first-child {
+      color: gray;
+      border-bottom: none;
+    }
+
+    &:hover {
+      color: #00223E;
+    }
+  }
+}
+
+.registerForm .formBody {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-family: inherit;
+
+  & p {
+    width: 75%;
+    margin: 15px auto 0;
+  }
+
+  & span {
+    font-weight: 600;
+    color: #00223E;
+    transition: color linear 0.2s;
+  }
+
+  & span:hover {
+    color: black;
+    cursor: pointer;
+  }
+}
+
+.registerForm .formBody .inputGroup {
+  width: 75%;
+  margin: 15px auto;
+
+  font-size: 14px;
+
+  &:first-child {
+    margin-top: -20px;
+  }
+}
+
+.registerForm .formBody .inputGroup input {
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+  padding: 0 10px;
+  box-sizing: border-box;
+
+  font-size: 16px;
+
+  border: 2px solid #00223E;
+  outline: none;
+}
+
+.registerForm .formBody .inputGroup .labelGroup .labelIcon {
+  padding-right: 5px;
+  color: black;
+
+  &.fieldFailed {
+    color: #A61108;
+  }
+}
+
+.registerForm .formBody .inputGroup .labelGroup label.fieldFailed {
+  color: #A61108;
+}
+
+.registerForm .formFooter {
+  height: 80px;
+}
+
+.registerForm .formFooter .submitButton {
+  width: 100%;
+  height: 80px;
+  justify-self: flex-end;
+  margin: auto 0 0;
+
+  font-size: 18px;
+
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #00223E;
+}
+
+.registerForm .formFooter .submitButton.registerFailed {
+  animation: failedBackgroundAnimation 1.5s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes failedBackgroundAnimation {
+  0% { background-color: #00223E; }
+  50% { background-color: #A61108; }
+  100% { background-color: #00223E; }
+}
