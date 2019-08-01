@@ -25,9 +25,6 @@ export default class UserImage extends Model<UserImage> implements UserImageProp
   @Column
   public userId: string;
 
-  @BelongsTo(() => User)
-  public user: User;
-
   @CreatedAt
   public createdAt?: Date;
 
