@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { apiMethod } from '../util/apiMethod';
-import { uploadUserImage, getUserProfile } from '../controller/userController';
+import { uploadUserImage, getUserProfile, setLocation, setBirthday } from '../controller/userController';
 import { upload } from '../middleware/multer';
 import { authenticate } from '../middleware/authenticate';
 
@@ -14,6 +14,8 @@ export class AuthRouter {
 
   private init() {
     this.router.post('/image', authenticate, upload.single('userImage'), apiMethod(uploadUserImage));
+    this.router.post('/birthday', authenticate, apiMethod(setBirthday));
+    this.router.post('/location', authenticate, apiMethod(setLocation));
     this.router.get('/profile', authenticate, apiMethod(getUserProfile));
   }
 }
