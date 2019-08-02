@@ -34,7 +34,7 @@ export class BaseModal extends React.Component<BaseModalProps> {
           </button>
           <h3>{this.props.title}</h3>
           {this.props.children}
-          <button onClick={() => this.props.onSave()}>Save</button>
+          <button className={style.saveButton} onClick={() => this.props.onSave()}>Save</button>
         </div>
       </div>
     );

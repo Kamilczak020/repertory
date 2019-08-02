@@ -39,6 +39,9 @@
     box-sizing: border-box;
     float: right;
     background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
 
     & .icon {
       width: 50%;
@@ -46,7 +49,7 @@
     }
   }
 
-  & button {
+  & .saveButton {
     width: 100%;
     height: 80px;
     justify-self: flex-end;
