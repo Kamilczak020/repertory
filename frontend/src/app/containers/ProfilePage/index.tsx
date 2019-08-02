@@ -54,7 +54,7 @@ export class ProfilePage extends React.Component {
                     <h3>Basic information</h3>
                     <div className={style.fields}>
                       <p><span>Birthday:</span></p>
-                      <p>{profileStore.birthday ? format(profileStore.birthday, 'DD-MM-YYYY') : 'Not provided'}</p>
+                      <p>{profileStore.birthday ? format(profileStore.birthday, 'DD MMMM YYYY') : 'Not provided'}</p>
                       <EditIcon viewBox="0 0 300 300" className={style.icon} onClick={() => profileStore.birthdayModalOpen = true} />
                       <p><span>Location:</span></p>
                       <p>{profileStore.location || 'Not provided'}</p>
