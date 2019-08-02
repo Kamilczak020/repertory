@@ -1,6 +1,7 @@
 import { observable, runInAction, computed, action } from 'mobx';
 import { ProfileModel } from 'app/model/profileModel';
 import { API } from 'app/api';
+import { Suggest } from 'react-geosuggest';
 
 export class ProfileStore {
   public constructor() {
@@ -72,6 +73,28 @@ export class ProfileStore {
   @computed
   public get passwordModalOpen(): boolean { return this.model.passwordModalOpen; }
   public set passwordModalOpen(value: boolean) { runInAction('set passwordModalOpen', () => this.model.passwordModalOpen = value); }
+
+  @action
+  public async saveLocation(location: Suggest) {
+    try {
+      await API.post('/user/location', { location: location.label });
+      this.location = location.label;
+      this.locationModalOpen = false;
+    } catch (error) {
+      throw new Error('Cannot save location.');
+    }
+  }
+
+  @action
+  public async saveBirthday(birthday: Date) {
+    try {
+      await API.post('/user/birthday', { birthday });
+      this.birthday = birthday;
+      this.birthdayModalOpen = false;
+    } catch (error) {
+      throw new Error('Cannot save birthday.')
+    }
+  }
 
   @action
   public async fetchUserInfo() {
