@@ -47,5 +47,22 @@ export async function getUserProfile(req: Request, res: Response, next: NextFunc
   } catch (error) {
     throw new DatabaseError('Cannot fetch user profile.');
   }
+}
 
+export async function setLocation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.user }});
+    await user.update({ location: req.body.location });
+  } catch (error) {
+    throw new DatabaseError('Cannot update location.');
+  }
+}
+
+export async function setBirthday(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.user }});
+    await user.update({ birthday: req.body.birthday });
+  } catch (error) {
+    throw new DatabaseError('Cannot update birthday.');
+  }
 }
