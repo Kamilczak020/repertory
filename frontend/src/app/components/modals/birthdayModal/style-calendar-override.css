@@ -1,0 +1,86 @@
+/* Calendar tiles */
+
+.react-calendar__tile {
+  height: 50px;
+  width: 50px;
+
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  border: none;
+  color: black;
+  background-color: white;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f7f7f7;
+}
+
+.react-calendar__tile:enabled:hover {
+  cursor: pointer;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover {
+  color: white;
+  background-color: #00223E;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #c23333;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth,
+.react-calendar__month-view__days__day--neighboringMonth.react-calendar__month-view__days__day--weekend {
+  color: #b9b9b9;
+}
+
+.react-calendar__month-view__days__day--weekend.react-calendar__tile--active,
+.react-calendar__month-view__days__day--neighboringMonth.react-calendar__tile--active {
+  color: white;
+}
+
+/* Days of the week */
+.react-calendar__month-view__weekdays {
+  margin: 25px 0 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+}
+
+/* Top navigation */
+.react-calendar__navigation button {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: white;
+}
+
+.react-calendar__navigation button:hover {
+  background-color: #f7f7f7;
+}
+
+button.react-calendar__navigation__arrow {
+  min-width: 40px;
+  font-size: 22px;
+}
+
+/* Month view */
+.react-calendar__year-view__months__month {
+  box-sizing: border-box;
+  height: 50px;
+}
+
+.react-calendar__tile--hasActive {
+  color: white;
+  background-color: #00223E;  
+}
+
+.react-calendar__tile--hasActive:hover {
+  background-color: #00223E; 
+}
