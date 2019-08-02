@@ -65,6 +65,7 @@
     "mobx-react-router": "^4.0.5",
     "qs": "^6.7.0",
     "react": "^16.7.0",
+    "react-calendar": "^2.19.0",
     "react-dom": "^16.7.0",
     "react-dropzone": "^10.1.6",
     "react-easy-crop": "^1.14.0",
