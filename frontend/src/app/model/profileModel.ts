@@ -1,7 +1,6 @@
 import { observable } from 'mobx';
 
 export class ProfileModel {
-  
   @observable
   public avatar: string;
 
@@ -30,15 +29,14 @@ export class ProfileModel {
   public username: string;
 
   /* Modals */
+  @observable
+  public accountInformationModalOpen: boolean;
 
   @observable
-  public bioModalOpen: boolean;
+  public userDetailsModalOpen: boolean;
 
   @observable
   public birthdayModalOpen: boolean;
-
-  @observable
-  public emailModalOpen: boolean;
 
   @observable
   public imageModalOpen: boolean;
@@ -46,6 +44,6 @@ export class ProfileModel {
   @observable
   public locationModalOpen: boolean;
 
-  @observable
-  public passwordModalOpen: boolean;
+
+
 }
