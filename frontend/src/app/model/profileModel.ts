@@ -15,7 +15,16 @@ export class ProfileModel {
   public email: string;
 
   @observable
+  public gender: string;
+
+  @observable
+  public joindate: Date;
+
+  @observable
   public location: string;
+
+  @observable
+  public name: string;
 
   @observable
   public username: string;
