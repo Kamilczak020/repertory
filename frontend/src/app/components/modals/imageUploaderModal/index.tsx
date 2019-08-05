@@ -5,12 +5,13 @@ import { STORE_ROUTER, STORE_PROFILE } from 'app/constants';
 import { inject, observer } from 'mobx-react';
 import { ProfileStore } from 'app/stores/profileStore';
 import { ProgressBar } from 'app/components/progressBar';
+import { BaseModal } from '../baseModal';
 import { toast } from 'react-toastify';
 import { API } from 'app/api';
 import Dropzone from 'react-dropzone';
 import Cropper from 'react-easy-crop';
 import UploadIcon from 'assets/images/upload.svg';
-import { BaseModal } from '../baseModal';
+import PlaceholderImage from 'assets/images/placeholder-user.jpg';
 
 const cx = classnames.bind(style);
 
@@ -31,7 +32,7 @@ export class ImageUploaderModal extends React.Component<{}, ImageUploaderModalSt
   public state = {
     isDragOver: false,
     image: undefined,
-    imagePreview: undefined,
+    imagePreview: PlaceholderImage,
     crop: { x: 0, y: 0 },
     cropArea: { x: 0, y: 0, width: 0, height: 0 },
     zoom: 1,
