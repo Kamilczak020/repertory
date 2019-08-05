@@ -1,3 +1,3 @@
-export * from './birthdayModal';
 export * from './imageUploaderModal';
-export * from './locationModal';
+export * from './accountInformationModal';
+export * from './userDetailsModal';
