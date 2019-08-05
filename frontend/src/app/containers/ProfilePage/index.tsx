@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { BaseContainer } from '../BaseContainer';
 import { STORE_PROFILE, STORE_USER, STORE_ROUTER } from 'app/constants';
 import { RouterStore, UserStore, ProfileStore } from 'app/stores';
-import { ImageUploaderModal, BirthdayModal, LocationModal } from 'app/components/modals';
+import { ImageUploaderModal, AccountInformationModal, UserDetailsModal } from 'app/components/modals';
 import { format } from 'date-fns';
 import { inject, observer } from 'mobx-react';
 import AddIcon from 'assets/images/plus.svg';
@@ -45,7 +45,7 @@ export class ProfilePage extends React.Component {
                   <div className={style.userDataColumn}>
                     <div className={style.title}>
                       <h3>Account Infomation</h3>
-                      <EditIcon className={style.icon} />
+                      <EditIcon className={style.icon} onClick={() => profileStore.accountInformationModalOpen = true} />
                     </div>
                     <div className={style.fields}>
                       <p><span>Username:</span></p>
@@ -61,7 +61,7 @@ export class ProfilePage extends React.Component {
                   <div className={style.userDataColumn}>
                     <div className={style.title}>
                       <h3>User Details</h3>
-                      <EditIcon className={style.icon} />
+                      <EditIcon className={style.icon} onClick={() => profileStore.userDetailsModalOpen = true} />
                     </div>
                     <div className={style.fields}>
                       <p><span>Name:</span></p>
@@ -84,9 +84,9 @@ export class ProfilePage extends React.Component {
                 <p>Create room</p>
               </div>
             </div>
-            <BirthdayModal />
+            <AccountInformationModal />
+            <UserDetailsModal />
             <ImageUploaderModal />
-            <LocationModal />
           </div>
         </div>
       </BaseContainer>
