@@ -3,7 +3,7 @@
   flex: 1;
   margin: 20px;
 
-  grid-template-columns: 3fr 20px 1fr;
+  grid-template-columns: 3.5fr 20px 1.5fr;
 }
 
 .profileContainer {
@@ -23,7 +23,6 @@
   box-sizing: border-box;
 
   & h3 {
-    margin-top: 69px;
     color: #c7c7c7;
     font-size: 12px;
     text-transform: uppercase;
@@ -35,8 +34,22 @@
   }
 
   & p {
-    margin: 5px 0 0;
+    margin: 15px 0 0;
     font-size: 16px;
+  }
+
+  & button {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+  
+    font-size: 18px;
+  
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #00223E;
   }
 
   & .icon {
@@ -60,24 +73,9 @@
     width: 300px;
     height: 300px;
   }
-
-  & button {
-    width: 100%;
-    height: 50px;
-    margin: 0;
-  
-    font-size: 18px;
-  
-    cursor: pointer;
-    border: none;
-    outline: none;
-    color: white;
-    background-color: #00223E;
-  }
 }
 
 .profileContainer .userInfo .userDetails {
-  width: 450px;
   display: flex;
   flex-direction: column;
   margin-left: 60px;
@@ -87,38 +85,50 @@
     color: #00223E;
     font-size: 30px;
   }
+
+  & .userType {
+    margin-top: 5px;
+  }
 }
 
 .profileContainer .userInfo .userDetails .userData {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.profileContainer .userInfo .userDetails .userDataColumn {
+  max-width: 450px;
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  margin-right: 80px;
+  margin-top: auto;
+
+  & .icon {
+    margin: auto auto auto 20px;
+    padding-bottom: 3px;
+  }
+
+  & .title {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+  }
 
   & .fields {
     display: grid;
-    grid-template-columns: 1.5fr 3fr 1fr;
+    grid-template-columns: 1.5fr 3fr;
     justify-content: space-between;
     text-align: left;
-  }
-}
-
-.profileContainer .userInfo .userBio {
-  max-width: 450px;
-  margin: 131px 20px 0 auto;
-
-  & h3 {
-    margin-top: 0;
   }
 
   & .bioFields {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    text-align: left;
+    height: 100%;
+    display: block;
   }
 
-  & .icon {
-    margin: 3px 0 0 15px;
+  & button {
+    margin-top: auto;
   }
 }
 

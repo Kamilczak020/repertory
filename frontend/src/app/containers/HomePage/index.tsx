@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as style from './style.css';
-import { BaseContainer } from 'app/containers/BaseContainer';
+import { BaseContainerWithFooter } from 'app/containers/BaseContainerWithFooter';
 import Television from 'assets/images/television.svg';
 import Discussion from 'assets/images/discussion.svg';
 import Personalize from 'assets/images/personalize.svg';
@@ -8,7 +8,7 @@ import Personalize from 'assets/images/personalize.svg';
 export class HomePage extends React.Component {
   public render() {
     return (
-      <BaseContainer>
+      <BaseContainerWithFooter>
         <div className={style.homeArea}>
           <h1>Enjoy videos online</h1>
           <h2>Together with Your friends</h2>
@@ -89,7 +89,7 @@ export class HomePage extends React.Component {
             </div>
           </div>
         </div>
-      </BaseContainer>
+      </BaseContainerWithFooter>
     );
   }
 }
