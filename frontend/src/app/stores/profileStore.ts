@@ -40,11 +40,23 @@ export class ProfileStore {
 
   @computed
   public get email(): string { return this.model.email; }
-  public set email(value: string) { runInAction('set avatar', () => this.model.email = value); }
+  public set email(value: string) { runInAction('set email', () => this.model.email = value); }
+
+  @computed
+  public get gender(): string { return this.model.gender; }
+  public set gender(value: string) { runInAction('set gender', () => this.model.gender = value); }
+
+  @computed
+  public get joinDate(): Date { return this.model.joindate; }
+  public set joinDate(value: Date) { runInAction('set joinDate', () => this.model.joindate = value); }
 
   @computed
   public get location(): string { return this.model.location; }
   public set location(value: string) { runInAction('set avatar', () => this.model.location = value); }
+
+  @computed
+  public get name(): string { return this.model.name; }
+  public set name(value: string) { runInAction('set name', () => this.model.name = value); }
 
   @computed
   public get username(): string { return this.model.username; }
