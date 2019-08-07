@@ -11,9 +11,10 @@ import { hot } from 'react-hot-loader/root';
 import { Route, Router, Switch} from 'react-router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { authenticated } from 'app/util/authenticated';
 
-library.add(faCheckCircle, faTimesCircle);
+library.add(faCheck, faCheckCircle, faTimesCircle);
 
 // render react DOM
 export const app = hot(({ history }) => (
