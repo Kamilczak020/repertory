@@ -71,47 +71,62 @@ export class ProfileStore {
   public set userDetailsModalOpen(value: boolean) { runInAction('set userDetailsModalOpen', () => this.model.userDetailsModalOpen = value); }
 
   @computed
-  public get birthdayModalOpen(): boolean { return this.model.birthdayModalOpen; }
-  public set birthdayModalOpen(value: boolean) { runInAction('set birthdayModalOpen', () => this.model.birthdayModalOpen = value); }
-
-  @computed
   public get imageModalOpen(): boolean { return this.model.imageModalOpen; }
   public set imageModalOpen(value: boolean) { runInAction('set imageModalOpen', () => this.model.imageModalOpen = value); }
-
-  @computed
-  public get locationModalOpen(): boolean { return this.model.locationModalOpen; }
-  public set locationModalOpen(value: boolean) { runInAction('set locationModalOpen', () => this.model.locationModalOpen = value); }
-
-  @action
-  public async saveLocation(location: Suggest) {
-    try {
-      await API.post('/user/location', { location: location.label });
-      this.location = location.label;
-      this.locationModalOpen = false;
-    } catch (error) {
-      throw new Error('Cannot save location.');
-    }
-  }
 
   @action
   public async saveBirthday(birthday: Date) {
     try {
       await API.post('/user/birthday', { birthday });
       this.birthday = birthday;
-      this.birthdayModalOpen = false;
     } catch (error) {
       throw new Error('Cannot save birthday.')
     }
   }
 
   @action
+  public async saveGender(gender: string) {
+    try {
+      await API.post('/user/gender', { gender });
+      this.gender = gender;
+    } catch (error) {
+      throw new Error('Cannot save gender.');
+    }
+  }
+
+  @action
+  public async saveLocation(location: Suggest) {
+    try {
+      await API.post('/user/location', { location: location.label });
+      this.location = location.label;
+    } catch (error) {
+      throw new Error('Cannot save location.');
+    }
+  }
+
+  @action
+  public async saveName(name: string) {
+    try {
+      await API.post('/user/name', { name });
+      this.name = name;
+    } catch (error) {
+      throw new Error('Cannot save name.');
+    }
+  }
+
+  @action
   public async fetchUserInfo() {
     const response = await API.get('/user/profile');
-    this.username = response.data.user.username;
+    this.birthday = response.data.user.birthday;
     this.email = response.data.user.email;
     this.location = response.data.user.location;
-    this.birthday = response.data.user.birthday;
-    this.bio = response.data.user.bio;
-    this.blobAvatar = new Blob([new Uint8Array(response.data.user.avatar.data)], { type: 'image/png' });
+    this.joinDate = response.data.user.joinDate;
+    this.gender = response.data.user.gender;
+    this.name = response.data.user.name;
+    this.username = response.data.user.username;
+
+    if (response.data.user.avatar) {
+      this.blobAvatar = new Blob([new Uint8Array(response.data.user.avatar.data)], { type: 'image/png' });
+    }
   }
 }
