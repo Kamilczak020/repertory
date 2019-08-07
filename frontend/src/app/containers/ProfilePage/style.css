@@ -3,7 +3,7 @@
   flex: 1;
   margin: 20px;
 
-  grid-template-columns: 3.5fr 20px 1.5fr;
+  grid-template-columns: auto 20px 500px;
 }
 
 .profileContainer {
@@ -95,14 +95,20 @@
   height: 100%;
   display: flex;
   flex-direction: row;
+
+  & .userColumns {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+  }
 }
 
 .profileContainer .userInfo .userDetails .userDataColumn {
-  max-width: 450px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   margin-right: 80px;
-  margin-top: auto;
+  margin-bottom: auto;
 
   & .icon {
     margin: auto auto auto 20px;
@@ -117,14 +123,9 @@
 
   & .fields {
     display: grid;
-    grid-template-columns: 1.5fr 3fr;
+    grid-template-columns: 1.5fr 4fr;
     justify-content: space-between;
     text-align: left;
-  }
-
-  & .bioFields {
-    height: 100%;
-    display: block;
   }
 
   & button {
@@ -132,35 +133,35 @@
   }
 }
 
-.profileContainer .roomList {
-  height: 150px;
-  margin: auto   20px 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-
-  box-sizing: border-box;
-  background: #f7f7f7;
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-
-.profileContainer .roomList .addRoomContainer {
+.profileContainer .trophyContainer {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background: #00223E;
+  margin-top: 50px;
+  padding: 20px;
 
-  & .addIcon {
-    width: 40px;
-    height: 40px;
-    fill: white;
+  & h3 {
+    color: #00223E;
+    font-size: 25px;
+    margin-bottom: 0;
   }
 
   & p {
-    margin-bottom: 0;
-    color: white;
+    color: #c7c7c7;
+    font-size: 12px;
+    vertical-align: bottom;
+    font-weight: bold;
+    text-transform: uppercase;
   }
+}
+
+.profileContainer .trophyContainer .trophyList {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  box-sizing: border-box;
+  background: #f7f7f7;
 }
