@@ -36,14 +36,5 @@ export class ProfileModel {
   public userDetailsModalOpen: boolean;
 
   @observable
-  public birthdayModalOpen: boolean;
-
-  @observable
   public imageModalOpen: boolean;
-
-  @observable
-  public locationModalOpen: boolean;
-
-
-
 }
