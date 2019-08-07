@@ -28,20 +28,31 @@ export default class User extends Model<User> implements UserProperties {
   @Column(DataType.STRING)
   public username: string;
 
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  public password: string;
+
   @Unique
   @AllowNull(false)
   @Column(DataType.STRING)
   public email: string;
 
+  @Unique
   @AllowNull(false)
-  @Column(DataType.STRING)
-  public password: string;
+  @Column(DataType.DATEONLY)
+  public joinDate: Date;
+
+  @Column(DataType.DATEONLY)
+  public birthday: Date;
 
   @Column(DataType.STRING)
   public location: string;
 
-  @Column(DataType.DATEONLY)
-  public birthday: Date;
+  @Column(DataType.STRING)
+  public gender: string;
+
+  @Column(DataType.STRING)
+  public name: string;
 
   @HasOne(() => UserImage)
   public userImage: UserImage;
