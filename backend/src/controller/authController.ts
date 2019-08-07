@@ -20,6 +20,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
+  const joinDate = new Date();
 
   if (!isString(username) || !isString(password)) {
     throw new RegistrationError('Invalid Credentials.');
@@ -32,7 +33,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
     throw new RegistrationError('Username already in database.', RegistrationFailureReason.UsernameExists);
   }
 
-  const [user, created] = await User.findOrCreate({ where: { email }, defaults: { username, password }}).catch((error) => {
+  const [user, created] = await User.findOrCreate({ where: { email }, defaults: { username, password, joinDate }}).catch((error) => {
     throw new DatabaseError(error);
   });
   if (!created) {

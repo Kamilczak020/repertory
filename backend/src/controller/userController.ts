@@ -37,15 +37,36 @@ export async function getUserProfile(req: Request, res: Response, next: NextFunc
       status: 'success',
       message: 'Fetched user profile',
       user: {
-        username: user.username,
-        email: user.email,
-        birthday: user.birthday,
-        location: user.location,
         avatar: user.userImage ? user.userImage.data : undefined,
+        birthday: user.birthday,
+        email: user.email,
+        joinDate: user.joinDate,
+        gender: user.gender,
+        location: user.location,
+        name: user.name,
+        username: user.username,
       },
     };
   } catch (error) {
     throw new DatabaseError('Cannot fetch user profile.');
+  }
+}
+
+export async function setBirthday(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.user }});
+    await user.update({ birthday: req.body.birthday });
+  } catch (error) {
+    throw new DatabaseError('Cannot update birthday.');
+  }
+}
+
+export async function setGender(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.user }});
+    await user.update({ gender: req.body.gender });
+  } catch (error) {
+    throw new DatabaseError('Cannot update gender.');
   }
 }
 
@@ -58,11 +79,11 @@ export async function setLocation(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function setBirthday(req: Request, res: Response, next: NextFunction) {
+export async function setName(req: Request, res: Response, next: NextFunction) {
   try {
     const user = await User.findOne({ where: { id: res.locals.user }});
-    await user.update({ birthday: req.body.birthday });
+    await user.update({ name: req.body.name });
   } catch (error) {
-    throw new DatabaseError('Cannot update birthday.');
+    throw new DatabaseError('Cannot update name.');
   }
 }
