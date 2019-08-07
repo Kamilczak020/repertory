@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as classnames from 'classnames/bind';
 import * as style from './style.css';
-import { BaseModal } from '../baseModal';
+import { BaseModalWithoutSave } from '../baseModalWithoutSave';
 import { inject, observer } from 'mobx-react';
 import { STORE_PROFILE } from 'app/constants';
 import { ProfileStore } from 'app/stores';
 import { BirthdaySubmodal } from './birthday';
+import { GenderSubmodal } from './gender';
 import { LocationSubmodal } from './location';
+import { NameSubmodal } from './name';
 
 const cx = classnames.bind(style);
 
@@ -39,10 +41,9 @@ export class UserDetailsModal extends React.Component {
     const nameButtonClassnames = cx({ active: this.state.modalType === UserDetailsModalType.Name });
 
     return (
-      <BaseModal className={style.userDetailsModal}
+      <BaseModalWithoutSave className={style.userDetailsModal}
         isOpen={profileStore.userDetailsModalOpen}
-        onClose={() => profileStore.userDetailsModalOpen = false}
-        onSave={() => null}>
+        onClose={() => profileStore.userDetailsModalOpen = false}>
         <div className={style.header}>
           <button className={birthdayButtonClassnames} onClick={() => this.setState({ modalType: UserDetailsModalType.Birthday })}>Birthday</button>
           <button className={genderButtonClassnames} onClick={() => this.setState({ modalType: UserDetailsModalType.Gender })}>Gender</button>
@@ -50,8 +51,10 @@ export class UserDetailsModal extends React.Component {
           <button className={nameButtonClassnames} onClick={() => this.setState({ modalType: UserDetailsModalType.Name })}>Name</button>
         </div>
         {this.state.modalType === UserDetailsModalType.Birthday ? <BirthdaySubmodal /> 
-        : this.state.modalType === UserDetailsModalType.Location ? <LocationSubmodal /> : null}
-      </BaseModal>
+        : this.state.modalType === UserDetailsModalType.Gender ? <GenderSubmodal />
+        : this.state.modalType === UserDetailsModalType.Location ? <LocationSubmodal /> 
+        : this.state.modalType === UserDetailsModalType.Name ? <NameSubmodal /> : null}
+      </BaseModalWithoutSave>
     );
   }
 }

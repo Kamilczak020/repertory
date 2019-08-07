@@ -5,16 +5,15 @@ import CloseIcon from 'assets/images/cross.svg';
 
 const cx = classnames.bind(style);
 
-export interface BaseModalProps {
+export interface BaseModalWithoutSaveProps {
   className: string;
   isOpen: boolean;
   title?: string;
 
   onClose: () => void;
-  onSave?: () => void;
 }
 
-export class BaseModal extends React.Component<BaseModalProps> {
+export class BaseModalWithoutSave extends React.Component<BaseModalWithoutSaveProps> {
   public render() {
     const modalContainerClassnames = cx({
       modalContainer: true,
@@ -34,7 +33,6 @@ export class BaseModal extends React.Component<BaseModalProps> {
           </button>
           {this.props.title ? <h3>this.props.title</h3> : null}
           {this.props.children}
-          <button className={style.saveButton} onClick={() => this.props.onSave()}>Save</button>
         </div>
       </div>
     );

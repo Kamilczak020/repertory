@@ -16,10 +16,18 @@
     color: white;
     background-color: #00223E;
   }
-}
 
-.calendar {
-  width: 400px;
-  height: 400px;
-  margin: 40px auto;
+  & input {
+    width: 400px;
+    height: 60px;
+    margin: 50px auto;
+    padding: .5em 1em;
+    box-sizing: border-box;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+
+    border: 2px solid #00223E;
+    outline: none;
+  }
 }
