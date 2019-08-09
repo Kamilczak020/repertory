@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  & form {
+    width: 100%;
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+
+  & input {
+    width: 400px;
+    height: 50px;
+    margin: 0px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    font-size: 16px;
+
+    border: 2px solid #00223E;
+    outline: none;
+  }
+
+  & .labelGroup {
+    width: 400px;
+    margin: 30px auto 5px;
+
+    font-size: 14px;
+
+    & .labelIcon {
+      padding-right: 5px;
+      color: black;
+    }
+
+    &.fieldFailed {
+      color: #A61108;
+    }
+  }
+
+  & .saveButton {
+    width: 100%;
+    height: 80px;
+    justify-self: flex-end;
+    margin-top: auto;
+  
+    font-size: 18px;
+  
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #00223E;
+  }
+}
