@@ -59,6 +59,10 @@ export class ProfileStore {
   public set name(value: string) { runInAction('set name', () => this.model.name = value); }
 
   @computed
+  public get nickname(): string { return this.model.nickname; }
+  public set nickname(value: string) { runInAction('set nickname', () => this.model.nickname = value); }
+
+  @computed
   public get username(): string { return this.model.username; }
   public set username(value: string) { runInAction('set username', () => this.model.username = value); }
 
@@ -76,42 +80,37 @@ export class ProfileStore {
 
   @action
   public async saveBirthday(birthday: Date) {
-    try {
-      await API.post('/user/birthday', { birthday });
-      this.birthday = birthday;
-    } catch (error) {
-      throw new Error('Cannot save birthday.')
-    }
+    await API.post('/user/birthday', { birthday });
+    this.birthday = birthday;
   }
 
   @action
   public async saveGender(gender: string) {
-    try {
-      await API.post('/user/gender', { gender });
-      this.gender = gender;
-    } catch (error) {
-      throw new Error('Cannot save gender.');
-    }
+    await API.post('/user/gender', { gender });
+    this.gender = gender;
   }
 
   @action
   public async saveLocation(location: Suggest) {
-    try {
-      await API.post('/user/location', { location: location.label });
-      this.location = location.label;
-    } catch (error) {
-      throw new Error('Cannot save location.');
-    }
+    await API.post('/user/location', { location: location.label });
+    this.location = location.label;
   }
 
   @action
   public async saveName(name: string) {
-    try {
-      await API.post('/user/name', { name });
-      this.name = name;
-    } catch (error) {
-      throw new Error('Cannot save name.');
-    }
+    await API.post('/user/name', { name });
+    this.name = name;
+  }
+
+  @action
+  public async saveNickname(nickname: string) {
+    await API.post('/user/nickname', { nickname });
+    this.name = nickname;
+  }
+
+  @action
+  public async savePassword(oldPassword: string, newPassword: string) {
+    await API.post('/user/password', { oldPassword, newPassword });
   }
 
   @action
@@ -123,6 +122,7 @@ export class ProfileStore {
     this.joinDate = response.data.user.joinDate;
     this.gender = response.data.user.gender;
     this.name = response.data.user.name;
+    this.nickname = response.data.user.nickname;
     this.username = response.data.user.username;
 
     if (response.data.user.avatar) {
