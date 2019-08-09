@@ -67,7 +67,11 @@ export class RegisterForm extends React.Component {
       : ['far', 'times-circle'];
 
     return (
-      <form className={style.registerForm}>
+      <form className={style.registerForm} onKeyDown={async (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          await registerStore.register(() => routerStore.history.push('/thankyou'));
+        }}}>
         <div className={style.formHeader}>
           <button className={style.signInButton}
             onClick={(e) => {

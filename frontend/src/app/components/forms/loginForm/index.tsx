@@ -49,7 +49,15 @@ export class LoginForm extends React.Component {
     });
 
     return (
-      <form className={style.loginForm}>
+      <form className={style.loginForm} onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          loginStore.login(() => {
+            userStore.isAuthenticated = true;
+            routerStore.push('/profile');
+          });
+        }
+      }}>
         <div className={style.formHeader}>
           <button className={style.signInButton}
             onClick={(e) => {
