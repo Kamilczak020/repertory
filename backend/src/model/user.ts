@@ -1,4 +1,4 @@
-import {Table, Column, Model, BeforeCreate, HasOne } from 'sequelize-typescript';
+import {Table, Column, Model, BeforeCreate, BeforeUpdate, HasOne } from 'sequelize-typescript';
 import { DataType, PrimaryKey, Default, Unique, AllowNull, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 import UserImage from './userImage';
 import * as bcrypt from 'bcryptjs';
@@ -71,6 +71,7 @@ export default class User extends Model<User> implements UserProperties {
   }
 
   @BeforeCreate
+  @BeforeUpdate
   private static async hashPassword(instance: User): Promise<void> {
     const salt = await bcrypt.genSalt();
     instance.password = await bcrypt.hash(instance.password, salt);
