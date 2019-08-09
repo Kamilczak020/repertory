@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../model/user';
 import UserImage from '../model/userImage';
-import { DatabaseError, RequestError } from '../error';
+import { DatabaseError, RequestError, AuthenticationError } from '../error';
 
 export async function uploadUserImage(req: Request, res: Response, next: NextFunction) {
   if (req.file.size > 5000000) {
@@ -85,5 +85,15 @@ export async function setName(req: Request, res: Response, next: NextFunction) {
     await user.update({ name: req.body.name });
   } catch (error) {
     throw new DatabaseError('Cannot update name.');
+  }
+}
+
+export async function setPassword(req: Request, res: Response, next: NextFunction) {
+  const user = await User.findOne({ where: { id: res.locals.user }}).catch((error) => { throw new DatabaseError('Cannot update password.'); });
+
+  if (await user.validatePassword(req.body.oldPassword)) {
+    await user.update({ password: req.body.newPassword });
+  } else {
+    throw new AuthenticationError('Cannot update password', 'password-no-match');
   }
 }
