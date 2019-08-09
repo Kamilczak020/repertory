@@ -26,6 +26,9 @@ export class ProfileModel {
   public name: string;
 
   @observable
+  public nickname: string;
+
+  @observable
   public username: string;
 
   /* Modals */
